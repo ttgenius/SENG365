@@ -6,8 +6,9 @@
       "first_name": "Burch",
       "last_name": "George",
       "gender": "male",
-      "email": "burchgeorge@geofarm.com"
-      "followers": [1002,1003]
+      "email": "burchgeorge@geofarm.com",
+      "followers": [1002,1003],
+      "posts":[]
     },
     {
       "id": "1002",
@@ -15,8 +16,9 @@
       "first_name": "Rachelle",
       "last_name": "Chang",
       "gender": "female",
-      "email": "rachellechang@geofarm.com"
-      "followers": [1001,1004]
+      "email": "rachellechang@geofarm.com",
+      "followers": [1001,1004],
+      "posts":[]
     },
     {
       "id": "1003",
@@ -24,8 +26,9 @@
       "first_name": "Sheri",
       "last_name": "Bennett",
       "gender": "female",
-      "email": "sheribennett@geofarm.com"
-      "followers": [1001,1002,1004]
+      "email": "sheribennett@geofarm.com",
+      "followers": [1001,1002,1004],
+      "posts":[]
     },
     {
       "id": "1004",
@@ -33,8 +36,9 @@
       "first_name": "Fisher",
       "last_name": "Dillard",
       "gender": "male",
-      "email": "fisherdillard@geofarm.com"
-      "followers": [1002,1003,1005]
+      "email": "fisherdillard@geofarm.com",
+      "followers": [1002,1003,1005],
+      "posts":[]
     },
     {
       "id": "1005",
@@ -42,8 +46,9 @@
       "first_name": "Pope",
       "last_name": "Bailey",
       "gender": "male",
-      "email": "popebailey@geofarm.com"
-      "followers": [1001,1002,1003,1004]
+      "email": "popebailey@geofarm.com",
+      "followers": [1001,1002,1003,1004],
+      "posts":[]
     }
   ]
 }
