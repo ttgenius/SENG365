@@ -163,6 +163,7 @@ app.post('/users/:id/post/delete/:postID',function(req,res) {
 });
 
 app.get('/users/:id/posts/view/followers',function(req,res) {
+    console.log("haha");
     let id = req.params.id;
     let posts = {};
     let followers = "No followers";
@@ -174,9 +175,10 @@ app.get('/users/:id/posts/view/followers',function(req,res) {
             for (let follower of followers){
                 let fid = users.indexOf(follower);
                 console.log(follower);
+                posts[fid] = [];
                 posts[fid].push(users[fid].posts);
             }
-        break;
+            break;
         }
     }
     res.send(posts);
