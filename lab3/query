@@ -1,0 +1,6 @@
+create table Users_conversation
+(user_id int references Users, 
+convo_id int references Conversations,
+foreign key (user_id) references Users(user_id),
+foreign key (convo_id) references Conversations(convo_id),
+primary key (user_id,convo_id));

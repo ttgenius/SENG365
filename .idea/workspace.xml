@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5265192b-9759-448b-ba54-8e4523dfea91" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lab4/app/controllers/user.server.controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lab4/app/models/user.server.model.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lab4/config/express.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -457,7 +454,7 @@
       <workItem from="1502000967560" duration="4431000" />
       <workItem from="1502076122947" duration="1920000" />
       <workItem from="1502161348372" duration="12322000" />
-      <workItem from="1502229904376" duration="2450000" />
+      <workItem from="1502229904376" duration="2514000" />
     </task>
     <task id="LOCAL-00001" summary="changes to l4">
       <created>1502076662631</created>
@@ -466,11 +463,18 @@
       <option name="project" value="LOCAL" />
       <updated>1502076662631</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="changes to lab4">
+      <created>1502232377556</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1502232377556</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53208000" />
+    <option name="totallyTimeSpent" value="53272000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -512,7 +516,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="changes to l4" />
-    <option name="LAST_COMMIT_MESSAGE" value="changes to l4" />
+    <MESSAGE value="changes to lab4" />
+    <option name="LAST_COMMIT_MESSAGE" value="changes to lab4" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />

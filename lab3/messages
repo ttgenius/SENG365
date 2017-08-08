@@ -1,0 +1,7 @@
+create table Messages
+(message_id int primary key AUTO_INCREMENT,
+convo_id int,
+user_id int,
+sent_time timestamp NOT NULL DEFAULT NOW(),
+foreign key (convo_id) references Conversations(convo_id),
+foreign key (user_id) references Users(user_id));
