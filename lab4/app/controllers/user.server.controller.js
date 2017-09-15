@@ -4,7 +4,8 @@
 const User = require('../models/user.server.model');
 exports.list = function(req,res){
     User.getAll(function(result){
-        res.json(result);
+        res.status(200).json(result);
+        res.json({"DESCRIPTION":"OK"})
     });
 };
 
@@ -49,5 +50,29 @@ exports.delete = function(req,res){
 exports.userById = function(req,res){
     return null;
 };
+
+exports.listMsg = function(req,res){
+    let id = req.params.id;
+    User.getMsgs(id,function(result){
+        res.json(result);
+    });
+};
+
+exports.postMsg = function(req,res){
+    let id = req.params.id;
+    User.insertMsgs(id,function(result){
+        res.json(result);
+    });
+};
+
+exports.listOneMsg =  function(req,res){
+    let cid = req.params.id;
+    let mid = req.params.mid;
+    User.getOneMsg(cid, mid, function(result){
+        res.json(result);
+    });
+};
+
+
 
 

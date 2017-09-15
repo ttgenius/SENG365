@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TT CV Contact</title>
+</head>
+<body>
+<ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="education.html">Education</a></li>
+    <li><a href="Experience.html">Experience</a></li>
+    <li><a href="Contact.html">Contact</a></li>
+</ul>
+<h1>Send me an email</h1>
+
+<form action="mailto:someone@example.com" method="post" enctype="text/plain">
+    Name:<br>
+    <input type="text" name="name"><br>
+    E-mail:<br>
+    <input type="email" pattern="[^@]*@[^@]" required oninvalid="this.setCustomValidity('invalid email')" name="mail"><br>
+    Comment:<br>
+    <textarea name="comment" rows="5"></textarea><br>
+    <input type="submit" value="Send">
+    <input type="reset" value="Reset">
+</form>
+</body>
+</html>

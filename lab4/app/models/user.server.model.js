@@ -38,3 +38,24 @@ exports.remove = function(userId,done){
         done(rows);
     });
 };
+
+exports.getMsgs= function(id,done){
+    db.get().query('select * from Messages,Conversations WHERE Conversations.convo_id = ? AND Messages.convo_id = Conversations.convo_id', id, function(err,rows){
+        if (err) return done(err);
+        done(rows);
+    });
+};
+
+exports.insertMsgs = function(id,done){
+    db.get().query('INSERT INTO Messages(convo_id) VALUES (?)',id, function(err,rows){
+        if(err) return done (err);
+        done(rows);
+    });
+};
+
+exports.getOneMsg = function(cid,mid,done){
+    db.get().query("select * from Messages,Conversations WHERE Conversations.convo_id = ? AND Messages.convo_id = Conversations.convo_id AND Messages.message_id = ? ",[cid,mid], function(err,rows){
+        if(err) return done (err);
+        done(rows);
+    });
+};
