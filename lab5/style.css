@@ -1,0 +1,30 @@
+body{
+    background-color: pink;
+}
+.navigation ul{
+    display: block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.navigation li a{
+    display: block;
+    width: 150px;
+    height: 40px;
+    background-color: black;
+    color: pink;
+    text-decoration: dashed;
+    font-family: Helvetica;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px;
+}
+
+.navigation li{
+    display: inline;
+    float: left
+}
+.navigation li a:hover{
+    color: black;
+    background-color:lightpink;
+}
