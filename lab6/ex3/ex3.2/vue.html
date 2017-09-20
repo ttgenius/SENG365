@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Application</title>
+</head>
+<body>
+<div id="app">
+    <!--display msg only visible is true-->
+    <!--<h1 v-if="visible">{{message}}</h1>-->
+    <ol>
+        <li v-for="item in shopping_list">
+            {{item.name}}:{{item.price}}
+         </li>
+    </ol>
+    <h2>{{calculateTotal()}}</h2>
+
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript" src="app.js"></script>
+</body>
+</html>
