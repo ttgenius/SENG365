@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Application</title>
+</head>
+<body>
+<div id="app">
+    <!--display msg only visible is true-->
+    <!--<h1 v-if="visible">{{message}}</h1>-->
+    <ol>
+       <vitem
+           v-for="item in shopping_list"
+           v-bind:vitem="item"
+           v-bind:key="item.name">
+       </vitem>
+    </ol>
+    <h2>Total: {{calculateTotal()}}</h2>
+
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript" src="app.js"></script>
+</body>
+</html>

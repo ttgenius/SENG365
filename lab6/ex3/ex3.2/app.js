@@ -12,14 +12,11 @@ const app = new Vue({
     methods: {
         calculateTotal: function() {
             let total = 0;
-            for(let i = 0; i < this.shopping_list.length; i++){
-                total += parseInt(this.shopping_list[i].price);
+            for(let item of this.shopping_list){
+                total += item.price;
             }
             return total;
         }
 }
-
-
-
 
 });
