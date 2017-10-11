@@ -1,0 +1,14 @@
+{
+    "name" : "my_chat_application",
+    "description" : "A simple chat API.",
+    "homepage" : "http://my.project.website",
+    "keywords" : ["chat", "application", "api"],
+    "author" : "My name <me@myemail.org>",
+    "main" : "app.js",
+    "version" : "0.0.1",
+    "dependencies": {
+        "express": "^4.15.3",
+        "mysql": "^2.13.0",
+        "body-parser": "^1.17.2"
+    }
+}

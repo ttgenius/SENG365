@@ -48,7 +48,7 @@ new Vue({
                     console.log(error);
                 });
         },
-        editUser: function (user, username) {
+        editUser: function (user) {
             if (this.username === "") {
                 alert("Please enter an username !");
             } else {
