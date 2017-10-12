@@ -95,9 +95,8 @@
 //                            console.log("adsfasdf "+this.$store.state.user_id);
                                 localStorage.setItem('token',token);
                                 localStorage.setItem('user_id',user_id);
-                            alert(islogIn);
                             alert(localStorage.getItem('token',token));
-                            this.$router.go('/')
+                            this.$router.push('/')
 //                            this.$store.dispatch("login", {
 //                               "token":token
 //                            }).then(() => {

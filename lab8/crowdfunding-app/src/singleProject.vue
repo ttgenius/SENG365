@@ -13,43 +13,49 @@
         <v-layout>
 
             <v-flex xs12 lg8 offset-sm2>
+                <v-card>
+                    <v-card-text>
+
                 <h2 class="black--text">{{projectData.title}}</h2>
                 <h6 class="black--text">{{projectData.subtitle}}</h6><br>
-                <div>
-                    <img v-bind:src="imageUri" >
+                <div style="margin-bottom: 20px">
+                    <img
+                            v-bind:src="imageUri"
+                            alt="no project image" onerror="this.onerror=null;this.src='https://www.beddingwarehouse.com.au/wp-content/uploads/2016/01/placeholder-featured-image-600x600.png';">
+
                 </div>
-                <h4>Project description</h4>
+                <h4 style="margin-top: 20px">Project description</h4>
                 <span>{{projectData.description}}</span>
 
-                <v-divider></v-divider>
-
-                <h4>Rewards</h4>
+                <h4 style="margin-top: 40px">Progress</h4>
+                    <v-flex xs10 offset-xs1>
+                    <v-progress-linear v-model="ratio"></v-progress-linear>
+                    </v-flex>
+                    <span>Target: {{projectData.target}}</span><br>
+                <span>Current Pledged: {{projectData.progress.currentPledged}}</span><br>
+                <span>Number of Backers: {{projectData.progress.numberOfBackers}}</span><br>
+                <h4 style="margin-top: 40px">Rewards</h4>
                 <ol>
-                <li v-for="(item,index) in projectData.rewards" v-if="index<5">
+                    <li v-for="(item,index) in projectData.rewards">
 
                         <span>Reward ID:{{item.id}}</span><br>
-                         <span>Amount: {{item.amount}}</span><br>
-                </li>
+                        <span>Amount: {{item.amount}}</span><br>
+                    </li>
                 </ol>
-                <ol>
-                    <v-divider></v-divider>
 
-                    <h4>Creators</h4>
-                <li v-for="(item,index) in projectData.creators" v-if="index<5">
-                    <span>Creator Name: {{item.username}}</span><br></li>
-                </ol>
-                <v-divider></v-divider>
                 <ol>
-                    <h4>Backers</h4>
-                <li v-for="(item,index) in projectData.backers" v-if="index<5">
-                    <span>Backer name: {{item.username}}</span><br>
-                    <span>Amount: {{item.amount}}</span><br>
-                </li>
+                    <h4 style="margin-top: 40px">Creators</h4>
+                    <li v-for="(item,index) in projectData.creators" >
+                        <span>Creator Name: {{item.username}}</span><br></li>
                 </ol>
-                <v-divider></v-divider>
-                <span>Current Pledged: {{projectData.currentPledged}}</span><br>
-                <span>Number of Backers: {{projectData.numberOfBackers}}</span><br>
 
+                <ol>
+                    <h4 style="margin-top: 40px">Backers</h4>
+                    <li v-for="(item,index) in projectData.backers" v-if="index<5">
+                        <span>Backer name: {{item.username}}</span><br>
+                        <span>Amount: {{item.amount}}</span><br>
+                    </li>
+                </ol>
 
                 <!--<v-card>-->
                     <!--<v-card-media-->
@@ -94,16 +100,28 @@
                         <!--</div>-->
                     <!--</v-card-title>-->
 
-                    <!--<v-card-actions>-->
-                        <v-btn color="orange" dark @click="goBack" >Back</v-btn>
-                    <div v-if="found===false">   <!--<div v-if="found===true">-->
+
+                <v-layout row >  <!--<v-card-actions>-->
+                <v-flex xs6>
+
+                        <v-btn color="orange" dark @click="goBack" >Back to Projects</v-btn>
+                </v-flex>
+                <v-flex xs6 offset-xs6>
+                    <div v-if="found===true">   <!--<div v-if="found===true">-->
                         <v-btn color="orange" dark @click="goEdit">Edit Project</v-btn>
                     </div>
-                <!--</v-card-actions>-->
+                <div v-else>
+                    <v-btn color="orange" dark @click="goPledge">Pledge this project</v-btn>
+                </div>
 
-                <!--</v-card>-->
+                </v-flex>
+                </v-layout>
+                <!--</v-card-actions>-->
+                    </v-card-text>
+                </v-card> <!--</v-card>-->
 
             </v-flex>
+
         </v-layout>
         </v-app>
     </div>
@@ -114,8 +132,6 @@
 <script>
 
     export default{
-
-
         data(){
             return {
                 error: "",
@@ -129,7 +145,8 @@
                     'close'
                 ],
                 found: false,
-                imageUri:""
+                imageUri:"",
+                ratio:0
 
             }
         },
@@ -164,7 +181,8 @@
                     .then(function (response) {
                         this.projectData = response.body;
                         this.imageUri='http://localhost:4941/api/v2'+response.body.imageUri
-                        console.log(response.body)
+                        this.ratio=this.projectData.progress.currentPledged/this.projectData.target*100;
+                        console.log("ratio",this.projectData.progress.currentPledged/this.projectData.target);
                         for (let creator of this.projectData.creators) {
                             if (creator.id == localStorage.getItem('user_id')) {
                                 alert("is creator");
@@ -213,25 +231,9 @@
                 id = id.toString();
             this.$router.push('/projects/edit/'+id)
             },
-//            getImg: function () {
-//                this.$http.get('http://localhost:4941/api/v2/projects/'+this.$route.params.id+'/image')
-//                    .then(function (response) {
-//                        this.projects = response.data;
-//                        console.log("dsafdsafsaf",response.data)
-//                        for (let project of this.projects){
-//                            console.log("project",project.imageUri.toString())
-//                            if (project.id==this.$route.params.id && project.open===true){
-//                                console.log("found img"+project.id+"img   "+project.imageUri)
-//                                this.imageUri='http://localhost:4941/api/v2/'+project.imageUri;
-//                                break;
-//                            }
-//                        }
-//                        console.log("adfasdfdafdfads", this.imageUri)
-//                    }, function (error) {
-//                        this.error = error;
-//                        this.errorFlag = true;
-//                    });
-//            },
+            goPledge:function(){
+                this.$router.push('/projects/pledge/'+this.$route.params.id)
+            }
 
         }
 

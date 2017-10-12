@@ -5,8 +5,17 @@
     <div v-else>
         <!--<div id="app">-->
             <v-app id="inspire">
+                <v-container>
+                    <v-layout row>
+                        <v-flex xs11 offset-sm1>
+                            <v-card>
+                                <v-card-text>
+                                    <v-container>
                 <v-form v-on:submit.prevent="createProject">
-
+                    <v-layout row wrap>
+                        <v-flex xs12 sm12 md16 class="my-3">
+                            <v-card>
+                                <v-card-text>
                     <v-text-field
                             label="Title"
                             v-model="title"
@@ -37,6 +46,13 @@
                             :error-messages="errors.collect('description')"
                             data-vv-name="description"
                     ></v-text-field>
+                                </v-card-text>
+                            </v-card>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout row wrap>
+                        <v-flex xs12 sm12 md16 class="my-3">
+                            <v-card>
                     <div class="panel-body">
                         <table class="table table-hover">
                             <thead>
@@ -66,7 +82,29 @@
                             </tbody>
                         </table>
                     </div>
-                   
+                            </v-card>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout row wrap>
+                        <v-flex xs12 sm12 md16 class="my-3">
+                            <v-card>
+
+                                    <v-btn raised  @click="onPickFile">Select IMAGE</v-btn>
+                                    <input type="file"
+                                           style="display: none"
+                                           ref="fileInput"
+                                           accept="image/*"
+                                           @change="onFilePicked">
+
+                                    <v-layout row>
+                                        <v-flex xs12 sm12 md16 class="my-3">
+                                            <img :src="imageUrl" height="150">
+                                        </v-flex>
+                                    </v-layout>
+                                    <!--<v-btn raised class="primary" type="submit">Update Image</v-btn>-->
+                            </v-card>
+                        </v-flex>
+                    </v-layout>
 
                     <!--<v-select-->
                             <!--label="Select open/close to open/close the project"-->
@@ -89,6 +127,12 @@
                         <v-btn type="submit">Create</v-btn>
                     </v-flex>
                 </v-form>
+                                    </v-container>
+                                </v-card-text>
+                            </v-card>
+                        </v-flex>
+                    </v-layout>
+                </v-container>
             </v-app>
         <!--</div>-->
     </div>
@@ -106,7 +150,8 @@
                     'open',
                     'close'
                 ],
-
+                image:null,
+                imageUrl:"",
                 title: "",
                 subtitle: "",
                 description: "",
@@ -128,6 +173,9 @@
                 alert(localStorage.getItem('user_id'));
 //                this.$validator.validateAll().then(function (res) {
 //                    alert(this.$store.state.user_id);
+                for (let reward of this.rewards){
+                    reward.amount= parseInt(reward.amount)
+                }
                     let projectData = {
                         "title": this.title,
                         "subtitle": this.subtitle,
@@ -141,8 +189,12 @@
                     console.log("projectdata", projectData);
                     this.$http.post('http://localhost:4941/api/v2/projects',projectData,{headers:{'X-Authorization':localStorage.getItem('token')}})
                         .then(function (response) {
-                            let project_id = response.id;
-                            alert(project_id)
+                            console.log(response.data);
+                            let project_id = response.data.id;
+                            alert(project_id);
+                            if(this.image){
+                                this.updateImage(project_id)
+                            }
                         }, function (error) {
                             this.error = error;
                             this.errorFlag = true;
@@ -178,6 +230,33 @@
                     this.$router.push('/');
 
                 }
+            },
+            updateImage:function(project_id){
+                this.$http.put('http://localhost:4941/api/v2/projects/'+project_id+'/image',this.image,{headers: {'X-Authorization': localStorage.getItem('token'),'Content-Type': 'image/png'}})
+                    .then(function(response) {
+                        alert("updateding image");
+//                        this.$router.push("/projects/" + this.$route.params.id);
+                    },function (error) {
+                        this.error = error;
+                        this.errorFlag = true;
+                    });
+
+            },
+            onPickFile:function(){
+                this.$refs.fileInput.click();
+            },
+            onFilePicked(event){
+                const files=event.target.files;
+                let filename=files[0].name;
+                if(filename.lastIndexOf('.')<=0){
+                    return alert('please add a valid file')
+                }
+                const fileReader = new FileReader();
+                fileReader.addEventListener('load',()=>{
+                    this.imageUrl=fileReader.result
+                });
+                fileReader.readAsDataURL(files[0]);
+                this.image=files[0];
             }
         }
 

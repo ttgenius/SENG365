@@ -70,11 +70,33 @@
                         </tbody>
                     </table>
                 </div>
-                <v-btn color="pink" dark type="submit">Update Rewards</v-btn>
+                <v-btn raised class="primary" type="submit">Update Rewards</v-btn>
             </v-form>
                         </v-card>
                     </v-flex>
                 </v-layout>
+                    <v-layout row wrap>
+                        <v-flex xs12 sm12 md16 class="my-3">
+                            <v-card>
+                                <v-form  v-on:submit.prevent="updateImage" >
+
+                                    <v-btn raised class="primary" @click="onPickFile">Select IMAGE</v-btn>
+                                    <input type="file"
+                                           style="display: none"
+                                           ref="fileInput"
+                                           accept="image/*"
+                                           @change="onFilePicked">
+
+                                <v-layout row>
+                                <v-flex xs12 sm12 md16 class="my-3">
+                                <img :src="imageUrl" height="150">
+                                </v-flex>
+                                </v-layout>
+                                    <v-btn raised class="primary" type="submit">Update Image</v-btn>
+                                </v-form>
+                            </v-card>
+                        </v-flex>
+                    </v-layout>
             </v-container>
         </v-app>
         </div>
@@ -98,6 +120,9 @@
                 subtitle: "",
                 description: "",
                 imageUri: "",
+                imageUrl:"",
+                image:null,
+                raw:"",
                 target: 0,
                 rewards: [{amount: 0, description: ""}],
 
@@ -157,6 +182,34 @@
                         this.$router.push("/projects/"+this.$route.params.id);
 
                     });
+            },
+            updateImage:function(){
+                if(!this.image){
+                    alert("please select an image before uploading")
+                }
+                this.$http.put('http://localhost:4941/api/v2/projects/'+this.$route.params.id+'/image',this.image,{headers: {'X-Authorization': localStorage.getItem('token'),'Content-Type': 'image/png'}})
+                    .then(function(response){
+                        alert("updateding image");
+                        this.$router.push("/projects/"+this.$route.params.id);
+
+                    });
+
+            },
+            onPickFile:function(){
+                this.$refs.fileInput.click();
+            },
+            onFilePicked(event){
+                const files=event.target.files;
+                let filename=files[0].name;
+                if(filename.lastIndexOf('.')<=0){
+                    return alert('please add a valid file')
+                }
+                const fileReader = new FileReader();
+                fileReader.addEventListener('load',()=>{
+                    this.imageUrl=fileReader.result
+                });
+                fileReader.readAsDataURL(files[0]);
+                this.image=files[0];
             }
         }
 

@@ -13,6 +13,9 @@
                 <v-btn icon>
                     <v-icon>search</v-icon>
                 </v-btn>
+                <v-btn icon>
+                    <v-icon dark>account_circle</v-icon>
+                </v-btn>
                 <!--<v-btn icon>-->
                     <!--<v-icon>more_vert</v-icon>-->
                 <!--</v-btn>-->
@@ -99,6 +102,7 @@
         mounted: function () {
 
             alert(localStorage.getItem('token'));
+
             this.checkLogin();
 
         },
@@ -131,6 +135,9 @@
                 this.errorFlag = true;
                 });
 
+            },
+            toEditUser:function(){
+                this.$router.push('/users/'+localStorage.getItem('user_id'))
             }
 
         }

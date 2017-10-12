@@ -8,6 +8,8 @@ import Users from './Users.vue'
 import singleProject from './singleProject.vue'
 import CreateProject from './CreateProject.vue'
 import EditProject from './EditProject.vue'
+import Pledge from './Pledge.vue'
+import EditUser from './EditUser.vue'
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
@@ -76,7 +78,7 @@ const routes=[
     {
         path: "/users/:id",
         name:"user",
-        component:Users
+        component:EditUser
     },
     {
         path: "/projects",
@@ -92,6 +94,11 @@ const routes=[
         path: "/projects/edit/:id",
         name:"editProject",
         component:EditProject
+    },
+    {
+        path: "/projects/pledge/:id",
+        name:"Pledge",
+        component:Pledge
     },
     {
         path: "/projects/:id",
