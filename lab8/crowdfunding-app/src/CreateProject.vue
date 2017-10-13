@@ -195,6 +195,7 @@
                             if(this.image){
                                 this.updateImage(project_id)
                             }
+                            this.$router.push('/')
                         }, function (error) {
                             this.error = error;
                             this.errorFlag = true;

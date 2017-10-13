@@ -15,6 +15,8 @@
                                                 id="username"
                                                 v-model="username"
                                                 type="username"
+                                                :counter="128"
+                                                :rules="nameRules"
                                                 required
                                         ></v-text-field>
                                     </v-flex>
@@ -27,6 +29,8 @@
                                                 id="email"
                                                 v-model="email"
                                                 type="email"
+                                                :counter="128"
+                                                :rules="emailRules"
                                                 required
                                         ></v-text-field>
                                     </v-flex>
@@ -39,6 +43,7 @@
                                                 id="password"
                                                 v-model="password"
                                                 type="password"
+                                                :count="20"
                                                 required></v-text-field>
                                     </v-flex>
                                 </v-layout>
@@ -50,7 +55,10 @@
                                                 id="confirmedPassword"
                                                 v-model="confirmedPassword"
                                                 type="password"
-                                                :rules="[comparePasswords]"></v-text-field>
+                                                :rules="[comparePasswords]"
+                                                :count="20"
+                                                required>
+                                        </v-text-field>
                                     </v-flex>
                                 </v-layout>
                                 <v-layout row>
@@ -61,6 +69,7 @@
                                                 id="location"
                                                 v-model="location"
                                                 type="location"
+                                                :count="256"
                                         ></v-text-field>
                                     </v-flex>
                                 </v-layout>
@@ -91,6 +100,10 @@
                 location: '',
                 error: '',
                 errorFlag: '',
+                nameRules:[(v) => /^[a-zA-Z0-9_]*$/.test(v) || 'Username can only contain letters, numbers and underscores'],
+                emailRules: [
+                    (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+                ]
 
             }
         },

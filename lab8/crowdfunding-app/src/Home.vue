@@ -102,7 +102,7 @@
         mounted: function () {
 
             alert(localStorage.getItem('token'));
-
+//            localStorage.clear();
             this.checkLogin();
 
         },

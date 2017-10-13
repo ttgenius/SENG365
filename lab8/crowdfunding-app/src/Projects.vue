@@ -91,8 +91,8 @@ adasdfasdf{{projects.length}}
                                     </div>
                                     <div v-else>
                                         aaaaaa{{filtered}}
-                                            <v-btn class="primary" dark v-if="startIndex>0" @click="filterPrevious">previous</v-btn>
-                                            <v-btn class="primary" dark  @click="filterNext">next</v-btn>
+                                            <v-btn class="primary" dark v-if="startIndex>0" @click="filterPrevious()">previous</v-btn>
+                                            <v-btn class="primary" dark  @click="filterNext()">next</v-btn>
                                     </div>
                                         </v-flex>
 
@@ -154,7 +154,7 @@ adasdfasdf{{projects.length}}
         data(){
             return {
                 startIndex:0,
-                count:9,
+                count:2,
                 projects:[],
                 items:[
                     'Creator View',
@@ -162,8 +162,8 @@ adasdfasdf{{projects.length}}
                     'Clear Filter'
                 ],
                 user_id:localStorage.getItem('user_id'),
-                filtered:false
-
+                filtered:false,
+                item:null
             }
         },
 
@@ -191,6 +191,7 @@ adasdfasdf{{projects.length}}
 
                 })
             },
+
             next: function () {
                 this.startIndex += this.count;
                 this.updateProjects()
@@ -205,8 +206,9 @@ adasdfasdf{{projects.length}}
             },
 
             filter: function (item) {
+                this.item=item;
+                (alert(this.item))
                 if (item === 'Creator View') {
-
                     this.filtered = true;
                     console.log("creator view")
                     this.$http.get('http://localhost:4941/api/v2/projects?', {
@@ -220,7 +222,7 @@ adasdfasdf{{projects.length}}
                         alert("cv")
                         if (response.body.length === 0) {
                             alert("end of list");
-                            this.filterPrevious();
+                            this.filterPrevious(item);
                         }
                         else {
                             this.projects = response.body;
@@ -244,7 +246,7 @@ adasdfasdf{{projects.length}}
                             this.projects = response.body;
 
                             alert("end of list");
-                            this.filterPrevious();
+                            this.filterPrevious(item);
                         }
                         else {
                             this.projects = response.body;
@@ -255,30 +257,26 @@ adasdfasdf{{projects.length}}
                 } else if (item === 'Clear Filter') {
 
                     this.filtered = false;
+                    this.startIndex=0;
                     this.updateProjects();
                 }
 
             },
             filterNext: function () {
-                alert("filter next")
-                if (this.count < this.projects.length) {
                     this.startIndex += this.count;
-                    this.filter();
+                    alert(this.startIndex)
+                alert(this.count)
+                    this.filter(this.item);
 
-                } else {
-                    alert("end of list")
-                }
             },
 
-            filterPrevious:function(){
+            filterPrevious:function() {
                 alert("filter previous")
-                if((this.startIndex+1)>this.count) {
-                    this.startIndex -= this.count;
-                this.filter();}
+                this.startIndex -= this.count;
+                this.filter(this.item)
+            }
             },
 
-
-        }
     }
 </script>
 
