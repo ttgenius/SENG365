@@ -200,6 +200,7 @@
             },
             onFilePicked(event){
                 const files=event.target.files;
+
                 let filename=files[0].name;
                 if(filename.lastIndexOf('.')<=0){
                     return alert('please add a valid file')
@@ -209,7 +210,9 @@
                     this.imageUrl=fileReader.result
                 });
                 fileReader.readAsDataURL(files[0]);
+
                 this.image=files[0];
+
             }
         }
 

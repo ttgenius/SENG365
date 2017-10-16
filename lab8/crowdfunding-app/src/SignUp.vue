@@ -1,5 +1,29 @@
 <template>
     <v-app id="inspire">
+        <v-toolbar color="indigo" dark>
+
+            <v-toolbar-side-icon></v-toolbar-side-icon>
+
+            <v-btn color="white" style="overflow: hidden;" flat router to="/projects/create">Create a Project</v-btn>
+
+
+            <v-btn color="white" flat hidden router to="/projects/">View All Projects</v-btn>
+
+            <v-flex xs6 offset-1>
+                <v-btn color="white"  flat hidden style="font-size :20px"router to="/">Crowdfunding Home
+                </v-btn>
+            </v-flex>
+
+            <v-spacer></v-spacer>
+
+            <v-btn icon>
+                <v-icon>search</v-icon>
+            </v-btn>
+            <v-btn icon>
+                <v-icon dark>account_circle</v-icon>
+            </v-btn>
+
+        </v-toolbar>
     <v-container>
         <v-layout row>
             <v-flex xs12 sm6 offset-sm3>

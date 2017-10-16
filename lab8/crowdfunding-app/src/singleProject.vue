@@ -1,5 +1,3 @@
-<!--projectData.progress.currentpledged undifined-->
-
 <template>
     <div v-if="errorFlag" style="color: red;">
         {{error}}
@@ -7,9 +5,45 @@
     
     <div v-else>
 
-
         <v-app id="inspire">
-        <!--<td>aaaaaaaaaaaaaa{{$route.params.userId}}</td>-->
+            <v-toolbar color="indigo" dark>
+                <v-toolbar-side-icon></v-toolbar-side-icon>
+                <v-btn color="white" style="overflow: hidden;" flat router to="/projects/create">
+                    Create a Project
+                </v-btn>
+
+
+                <v-btn color="white" flat hidden router to="/projects/">View All Projects</v-btn>
+
+                <v-flex xs6 offset-1>
+                    <v-btn color="white" flat hidden style="font-size :20px" router to="/">Crowdfunding Home
+                    </v-btn>
+                </v-flex>
+                <v-spacer></v-spacer>
+
+                <v-btn icon>
+                    <v-icon>search</v-icon>
+                </v-btn>
+                <v-btn icon>
+                    <v-icon dark>account_circle</v-icon>
+                </v-btn>
+                <v-btn  color="white" flat v-if="logTxt==='LOG IN'" router to="/users">Sign Up
+                </v-btn>
+
+                <v-btn color="white" flat v-if="logTxt==='LOG IN'" router to="/users/login">
+
+                    {{logTxt}}
+
+                </v-btn>
+                <v-btn color="white" flat v-else v-on:click="logout">
+                    {{logTxt}}
+                </v-btn>
+                <div v-else class="text-xs-center">
+
+                    <v-btn color="white" dark slot="activator" disabled>Filter</v-btn>
+
+                </div>
+            </v-toolbar>
         <v-layout>
 
             <v-flex xs12 lg8 offset-sm2>
@@ -50,56 +84,12 @@
                 </ol>
 
                 <ol>
-                    <h4 style="margin-top: 40px">Backers</h4>
-                    <li v-for="(item,index) in projectData.backers" v-if="index<5">
+                    <h4 style="margin-top: 40px">Recent Pledges</h4>
+                    <li v-for="(item,index) in backers">
                         <span>Backer name: {{item.username}}</span><br>
                         <span>Amount: {{item.amount}}</span><br>
                     </li>
                 </ol>
-
-                <!--<v-card>-->
-                    <!--<v-card-media-->
-                            <!--class="white&#45;&#45;text"-->
-
-                            <!--height="200px"-->
-                            <!--v-bind:src="imageUri">-->
-
-                        <!--<v-container fill-height fluid>-->
-                            <!--<v-layout fill-height>-->
-                                <!--<v-flex lg12 flexbox>-->
-                                    <!--<span class="headline"></span>-->
-                                <!--</v-flex>-->
-                            <!--</v-layout>-->
-                        <!--</v-container>-->
-                    <!--</v-card-media>-->
-                    <!--<v-card-title>-->
-                        <!--<div>-->
-                                    <!--<span>Project title:{{projectData.title}} </span><br>-->
-                                    <!--<span>Project subtitle: {{projectData.subtitle}}</span><br>-->
-                            <!--<span>Project description:{{projectData.description}}</span><br>-->
-                            <!--<span>Current Pledged: {{projectData.progress.currentPledged}}</span><br>-->
-                            <!--<span>Number of Backers: {{projectData.progress.numberOfBackers}}</span><br>-->
-
-
-                            <!--<ol>-->
-                                <!--<li v-for="(item,index) in projectData.creators" v-if="index<5">-->
-                                    <!--creator name: {{item.username}}</li>-->
-                            <!--</ol>-->
-
-
-                            <!--<ol>-->
-                            <!--<li v-for="(item,index) in projectData.rewards" v-if="index<5">-->
-                               <!--Reward id: {{item.id}},  Amount: {{item.amount}}</li>-->
-                        <!--</ol>-->
-
-                            <!--<ol>-->
-                            <!--<li v-for="(item,index) in projectData.backers" v-if="index<5">-->
-                            <!--Backer name: {{item.username}},  Amount: {{item.amount}}</li>-->
-                            <!--</ol>-->
-
-                        <!--</div>-->
-                    <!--</v-card-title>-->
-
 
                 <v-layout row >  <!--<v-card-actions>-->
                 <v-flex xs6>
@@ -146,40 +136,71 @@
                 ],
                 found: false,
                 imageUri:"",
-                ratio:0
-
+                ratio:0,
+                backers:[],
+                logTxt: "",
             }
         },
 
         mounted: function () {
             this.getSingleProject(this.$route.params.id);
+            this.checkLogin();
         },
 
 
         methods: {
-//            getProjects: function () {
-//                this.$http.get('http://localhost:4941/api/v2/projects')
-//                    .then(function (response) {
-//                        this.projects = response.data;
-//                        console.log("dsafdsafsaf",response.data)
-//                        for (let project of this.projects){
-//                            console.log("project",this.projects[0].length)
-//                            if (project.id==this.$route.params.id && project.open===true){
-//                                console.log("found img"+project.id+"img   "+project.imageUri)
-//                                this.imageUri='http://localhost:4941/api/v2/'+project.imageUri;
-//                                break;
-//                            }
-//                        }
-//                        console.log("adfasdfdafdfads", this.imageUri)
-//                    }, function (error) {
-//                        this.error = error;
-//                        this.errorFlag = true;
-//                    });
-//            },
+            checkLogin: function () {
+
+                if (localStorage.getItem('token')) {
+                    alert(localStorage.getItem('token'))
+                    this.logTxt = 'LOG OUT'
+                } else {
+                    this.logTxt = 'LOG IN'
+                }
+            },
+
+            logout: function () {
+
+                this.$http.post('http://localhost:4941/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
+                    alert("logint out");
+                    localStorage.clear();
+                    this.logTxt = 'LOG IN';
+                    alert("successfully logged out")
+                }, function (error) {
+                    this.error = error;
+                    localStorage.clear();
+                    this.errorFlag = true;
+                });
+
+            },
+//
             getSingleProject: function (project_id) {
                 this.$http.get('http://localhost:4941/api/v2/projects/' + project_id.toString())
                     .then(function (response) {
                         this.projectData = response.body;
+                        console.log(this.projectData);
+                        let i=0;
+                        let anon_flag=false;
+                        let anon_index=-1;
+                        while (i!==this.projectData.backers.length && this.backers.length<5){
+                            if(this.projectData.backers[i].username==="anonymous"){
+                                if(!anon_flag){
+                                    this.backers.push(this.projectData.backers[i]);
+                                    anon_index=this.backers.length-1;
+                                    anon_flag=true;
+                                }
+                                else{
+                                    this.backers[anon_index].amount+=this.projectData.backers[i].amount;
+                                }
+                            }else{
+                                this.backers.push(this.projectData.backers[i]);
+
+                            }
+                            i++
+
+                        }
+
+
                         this.imageUri='http://localhost:4941/api/v2'+response.body.imageUri
                         this.ratio=this.projectData.progress.currentPledged/this.projectData.target*100;
                         console.log("ratio",this.projectData.progress.currentPledged/this.projectData.target);

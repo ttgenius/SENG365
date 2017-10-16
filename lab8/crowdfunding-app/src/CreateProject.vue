@@ -5,6 +5,35 @@
     <div v-else>
         <!--<div id="app">-->
             <v-app id="inspire">
+                <v-toolbar color="indigo" dark>
+
+                    <v-toolbar-side-icon></v-toolbar-side-icon>
+
+                    <v-btn color="white" style="overflow: hidden;" flat router to="/projects/create">
+                        Create a Project
+                    </v-btn>
+
+
+                    <v-btn color="white" flat router to="/projects/">View All Projects</v-btn>
+
+                    <v-flex xs6 offset-1>
+                        <v-btn color="white" flat style="font-size :20px" router to="/">Crowdfunding Home
+                        </v-btn>
+                    </v-flex>
+
+                    <v-spacer></v-spacer>
+
+                    <v-btn icon>
+                        <v-icon>search</v-icon>
+                    </v-btn>
+                    <v-btn icon>
+                        <v-icon dark>account_circle</v-icon>
+                    </v-btn>
+
+                    <v-btn color="white" flat v-on:click="logout">
+                       log out
+                    </v-btn>
+                </v-toolbar>
                 <v-container>
                     <v-layout row>
                         <v-flex xs11 offset-sm1>
@@ -36,10 +65,11 @@
                             label="Target"
                             v-model="target"
                             :error-messages="errors.collect('target')"
-                            v-validate="'min_value:0'"
+                            v-validate="'required|min_value:0'"
                             data-vv-name="target"
                             required
                     ></v-text-field>
+
                     <v-text-field
                             label="description"
                             v-model="description"
@@ -57,9 +87,9 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th style="width: 40px;">Reward No.</th>
-                                <th style="width: 80px;">Amount</th>
-                                <th>Description</th>
+                                <th style="width: 40px;font-size: 15px">Reward No.</th>
+                                <th style="width: 80px;font-size: 15px">Amount</th>
+                                <th style="font-size: 15px">Description</th>
                                 <v-btn @click="addReward()">add reward</v-btn>
                             </tr>
 
@@ -71,10 +101,23 @@
                                     {{ index }}
                                 </td>
                                 <td>
-                                    <input class="form-control" v-model="reward.amount" number/>
+                                    <v-text-field
+                                            v-model="reward.amount"
+                                            :error-messages="errors.collect('reward.amount')"
+                                            v-validate="'min_value:0'"
+                                            data-vv-name="reward.amount"
+                                           >
+                                    </v-text-field>
                                 </td>
                                 <td>
-                                    <input class="form-control" v-model="reward.description"/>
+                                    <v-text-field
+                                            v-model="reward.description"
+                                            :counter="256"
+                                            :error-messages="errors.collect('reward.description')"
+
+                                            data-vv-name="reward.description"
+
+                                    ></v-text-field>
                                 </td>
 
                                 <v-btn @click="removeReward(index)">remove</v-btn>
@@ -192,6 +235,7 @@
                             console.log(response.data);
                             let project_id = response.data.id;
                             alert(project_id);
+                            console.log("safdsfsfd",this.image);
                             if(this.image){
                                 this.updateImage(project_id)
                             }
@@ -229,8 +273,21 @@
                 if (! localStorage.getItem('token')) {
                     alert("not logged in!");
                     this.$router.push('/');
-
                 }
+            },
+            logout: function () {
+
+                this.$http.post('http://localhost:4941/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
+                    alert("logint out");
+                    localStorage.clear();
+                    this.logTxt = 'LOG IN';
+                    alert("successfully logged out")
+                }, function (error) {
+                    this.error = error;
+                    localStorage.clear();
+                    this.errorFlag = true;
+                });
+
             },
             updateImage:function(project_id){
                 this.$http.put('http://localhost:4941/api/v2/projects/'+project_id+'/image',this.image,{headers: {'X-Authorization': localStorage.getItem('token'),'Content-Type': 'image/png'}})
@@ -258,7 +315,8 @@
                 });
                 fileReader.readAsDataURL(files[0]);
                 this.image=files[0];
-            }
+            },
+
         }
 
 

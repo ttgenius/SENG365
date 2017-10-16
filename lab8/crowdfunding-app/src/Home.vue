@@ -3,91 +3,96 @@
         {{error}}
     </div>
     <div v-else>
-    <v-app id="inspire">
-        <v-tabs dark grow>
-            <v-toolbar class="grey lighten-4" light>
-                <!--<v-toolbar-side-icon></v-toolbar-side-icon>-->
-                <v-toolbar-title><router-link :to="{path: '/'}">Crowdfunding Home
-                    </router-link></v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-btn icon>
-                    <v-icon>search</v-icon>
-                </v-btn>
-                <v-btn icon>
-                    <v-icon dark>account_circle</v-icon>
-                </v-btn>
-                <!--<v-btn icon>-->
+        <v-app id="inspire">
+
+
+                <v-layout column>
+                    <v-toolbar color="indigo" dark>
+
+                        <v-toolbar-side-icon></v-toolbar-side-icon>
+
+                        <v-btn color="white" style="overflow: hidden;" flat router to="/projects/create">
+                            Create a Project
+                        </v-btn>
+
+
+                        <v-btn color="white" flat hidden router to="/projects/">View All Projects</v-btn>
+
+                        <v-flex xs6 offset-1>
+                            <v-btn color="white" flat hidden style="font-size :20px" router to="/">Crowdfunding Home
+                            </v-btn>
+                        </v-flex>
+
+                        <v-spacer></v-spacer>
+
+                        <v-btn icon>
+                            <v-icon>search</v-icon>
+                        </v-btn>
+                        <v-btn icon>
+                            <v-icon dark>account_circle</v-icon>
+                        </v-btn>
+                        <v-btn color="white" flat v-if="logTxt==='LOG IN'" router to="/users">Sign Up
+                        </v-btn>
+
+                        <v-btn color="white" flat v-if="logTxt==='LOG IN'" router to="/users/login">
+
+                            {{logTxt}}
+
+                        </v-btn>
+                        <v-btn color="white" flat v-else v-on:click="logout">
+                            {{logTxt}}
+                        </v-btn>
+                    </v-toolbar>
+                    <v-flex xs12>
+                        <v-carousel style="height:600px" v-if="loaded">
+                            <v-carousel-item v-for="(item,i) in items" v-bind:src="item.uri" v-bind:key="i"
+                                             style="height:100%;width:100%;">
+                                <div class="title">{{item.title}}</div>
+                            </v-carousel-item>
+                        </v-carousel>
+                    </v-flex>
+                    <!--<v-app id="inspire">-->
+                    <!--<v-tabs dark fixed centered>-->
+                    <!--<v-toolbar extended class="light-blue" dark>-->
+                    <!--<v-toolbar-side-icon></v-toolbar-side-icon>-->
+                    <!--<v-spacer></v-spacer>-->
+                    <!--<v-btn icon>-->
+                    <!--<v-icon>search</v-icon>-->
+                    <!--</v-btn>-->
+                    <!--<v-btn icon>-->
                     <!--<v-icon>more_vert</v-icon>-->
-                <!--</v-btn>-->
-                <v-btn v-on:click="toSignUp">Sign Up
+                    <!--</v-btn>-->
+                    <!--<v-toolbar-title slot="extension" class="display-2">-->
+                    <!--<router-link :to="{path: '/'}">Crowdfunding-->
+                    <!--</router-link></v-toolbar-title>-->
+                    <!--</v-toolbar>-->
+                    <!--<v-tabs-bar class="cyan">-->
+                    <!--<v-tabs-slider class="yellow"></v-tabs-slider>-->
+                    <!--<v-tabs-item>-->
 
                     <!--<router-link :to="{path: 'users'}">Sign Up</router-link>-->
 
-                </v-btn>
-                <v-btn v-if="logTxt==='LOG IN'" v-on:click="toLogIn">
+                    <!--</v-tabs-item>-->
+                    <!--<v-tabs-item>-->
 
-                   {{logTxt}}
+                    <!--<router-link :to="{path: 'users/login'}">Log in</router-link>-->
 
-                </v-btn>
-                <v-btn v-else v-on:click="logout">
-                   {{logTxt}}
-                </v-btn>
-                <v-tabs-bar class="grey lighten-4" light slot="extension">
+                    <!--</v-tabs-item>-->
+                    <!--</v-tabs-bar>-->
 
-                    <v-tabs-item>
+                    <!--</v-tabs>-->
+                    <!--</v-app>-->
 
-                        <router-link :to="{path: 'projects/create'}">Create a project</router-link>
+                    <!--</div>-->
+                    <!--Home Page-->
+                    <!--<a href="users">Sign up</a>-->
+                    <!--<a href="users/login">Log in</a>-->
+                    <!--<a href="projects">View all project</a>-->
+                    <!--<a href="projects/create">Create a project</a>-->
+                    <!--</div>-->
+                </v-layout>
 
-                    </v-tabs-item>
-                    <v-tabs-item>
-
-                        <router-link :to="{path: 'projects'}">View all projects</router-link>
-
-                    </v-tabs-item>
-                </v-tabs-bar>
-            </v-toolbar>
-        </v-tabs>
-
-    </v-app>
-    <!--<v-app id="inspire">-->
-        <!--<v-tabs dark fixed centered>-->
-            <!--<v-toolbar extended class="light-blue" dark>-->
-                <!--<v-toolbar-side-icon></v-toolbar-side-icon>-->
-                <!--<v-spacer></v-spacer>-->
-                <!--<v-btn icon>-->
-                    <!--<v-icon>search</v-icon>-->
-                <!--</v-btn>-->
-                <!--<v-btn icon>-->
-                    <!--<v-icon>more_vert</v-icon>-->
-                <!--</v-btn>-->
-                <!--<v-toolbar-title slot="extension" class="display-2">-->
-                    <!--<router-link :to="{path: '/'}">Crowdfunding-->
-                    <!--</router-link></v-toolbar-title>-->
-            <!--</v-toolbar>-->
-            <!--<v-tabs-bar class="cyan">-->
-                <!--<v-tabs-slider class="yellow"></v-tabs-slider>-->
-                <!--<v-tabs-item>-->
-
-                <!--<router-link :to="{path: 'users'}">Sign Up</router-link>-->
-
-                <!--</v-tabs-item>-->
-                <!--<v-tabs-item>-->
-
-                <!--<router-link :to="{path: 'users/login'}">Log in</router-link>-->
-
-                <!--</v-tabs-item>-->
-            <!--</v-tabs-bar>-->
-
-        <!--</v-tabs>-->
-        <!--</v-app>-->
-
-    <!--</div>-->
-        <!--Home Page-->
-        <!--<a href="users">Sign up</a>-->
-        <!--<a href="users/login">Log in</a>-->
-        <!--<a href="projects">View all project</a>-->
-        <!--<a href="projects/create">Create a project</a>-->
-    <!--</div>-->
+        </v-app>
     </div>
 </template>
 
@@ -95,7 +100,13 @@
     export default{
         data(){
             return {
-                logTxt:""
+                loaded:false,
+                logTxt: "",
+                items: [
+
+                ],
+                error: '',
+                errorFlag: '',
 
             }
         },
@@ -104,7 +115,7 @@
             alert(localStorage.getItem('token'));
 //            localStorage.clear();
             this.checkLogin();
-
+            this.getProjects();
         },
 
         methods: {
@@ -117,29 +128,60 @@
                     this.logTxt = 'LOG IN'
                 }
             },
-            toSignUp: function () {
-                this.$router.push('users')
-            },
 
-            toLogIn: function () {
-                this.$router.push('users/login')
-            },
             logout: function () {
-                this.$http.post('http://localhost:4941/api/v2/users/logout',"",{headers:{'X-Authorization':localStorage.getItem('token')}}).then(function (response) {
+
+                this.$http.post('http://localhost:4941/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
                     alert("logint out");
                     localStorage.clear();
                     this.logTxt = 'LOG IN';
                     alert("successfully logged out")
                 }, function (error) {
-                this.error = error;
-                this.errorFlag = true;
+                    this.error = error;
+                    localStorage.clear();
+                    this.errorFlag = true;
                 });
 
             },
-            toEditUser:function(){
-                this.$router.push('/users/'+localStorage.getItem('user_id'))
-            }
+            toEditUser: function () {
+                this.$router.push('/users/' + localStorage.getItem('user_id'))
+            },
+
+            getProjects: function () {
+                this.$http.get('http://localhost:4941/api/v2/projects')
+                    .then(function (response) {
+                        let projects = response.data;
+                        console.log("dsafdsafsaf", response.data);
+                        let count = 0;
+                        for (let project of projects) {
+                            console.log("xx"+project.imageUri)
+                            if (count < 4 && project.open === true && project.imageUri !== null) {
+                                console.log("haha");
+                                let uri = 'http://localhost:4941/api/v2' + project.imageUri;
+                                this.items.push({"uri": uri, "title": project.title, "id": '/projects/' + project.id});
+                                count++;
+                            }
+                        }
+                        this.loaded=true;
+                        console.log("rui", this.items)
+                    }, function (error) {
+                        this.error = error;
+                        this.errorFlag = true;
+                    });
+            },
 
         }
     }
 </script>
+<style scoped>
+    .title {
+        position: absolute;
+        bottom: 50px;
+        left:0px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        font-size: 2em;
+        padding: 20px;
+        margin-bottom: 0px;
+    }
+</style>
