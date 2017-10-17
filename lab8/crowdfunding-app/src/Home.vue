@@ -44,9 +44,9 @@
                         </v-btn>
                     </v-toolbar>
                     <v-flex xs12>
-                        <v-carousel style="height:600px" v-if="loaded">
+                        <v-carousel style="height:100%" v-if="loaded">
                             <v-carousel-item v-for="(item,i) in items" v-bind:src="item.uri" v-bind:key="i"
-                                             style="height:100%;width:100%;">
+                                             style="background-size:contain;">
                                 <div class="title">{{item.title}}</div>
                             </v-carousel-item>
                         </v-carousel>
@@ -131,7 +131,7 @@
 
             logout: function () {
 
-                this.$http.post('http://localhost:4941/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
+                this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
                     alert("logint out");
                     localStorage.clear();
                     this.logTxt = 'LOG IN';
@@ -148,16 +148,17 @@
             },
 
             getProjects: function () {
-                this.$http.get('http://localhost:4941/api/v2/projects')
+                this.$http.get('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects')
                     .then(function (response) {
                         let projects = response.data;
                         console.log("dsafdsafsaf", response.data);
                         let count = 0;
                         for (let project of projects) {
                             console.log("xx"+project.imageUri)
-                            if (count < 4 && project.open === true && project.imageUri !== null) {
-                                console.log("haha");
-                                let uri = 'http://localhost:4941/api/v2' + project.imageUri;
+                            if (count < 4 && project.open === true && project.imageUri !== null && project.imageUri !== undefined) {
+
+
+                                let uri = 'http://csse-s365.canterbury.ac.nz:4842/api/v2' + project.imageUri;
                                 this.items.push({"uri": uri, "title": project.title, "id": '/projects/' + project.id});
                                 count++;
                             }

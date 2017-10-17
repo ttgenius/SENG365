@@ -108,14 +108,14 @@
                     alert("Please enter a password!")
                 } else {
                     this.$resource['content-type'] = 'application/json';
-                    this.$http.post('http://localhost:4941/api/v2/users', {
+                    this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users', {
                         "username": this.username,
                         "email":this.email,
                         "password": this.password,
                         "location":this.location
 
                     }).then(function (response) {
-                        this.$http.post('http://localhost:4941/api/v2/users/login?username=' + this.username + '&email=' + this.email + "&password=" + this.password).then(function (response) {
+                        this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/login?username=' + this.username + '&email=' + this.email + "&password=" + this.password).then(function (response) {
 
                             console.log(response.body);
                             let token = response.body.token;

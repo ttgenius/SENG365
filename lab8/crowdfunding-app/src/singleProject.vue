@@ -53,7 +53,7 @@
                 <h2 class="black--text">{{projectData.title}}</h2>
                 <h6 class="black--text">{{projectData.subtitle}}</h6><br>
                 <div style="margin-bottom: 20px">
-                    <img
+                    <img    style="width:100%"
                             v-bind:src="imageUri"
                             alt="no project image" onerror="this.onerror=null;this.src='https://www.beddingwarehouse.com.au/wp-content/uploads/2016/01/placeholder-featured-image-600x600.png';">
 
@@ -143,8 +143,10 @@
         },
 
         mounted: function () {
-            this.getSingleProject(this.$route.params.id);
+
             this.checkLogin();
+            this.getSingleProject(this.$route.params.id);
+
         },
 
 
@@ -161,7 +163,7 @@
 
             logout: function () {
 
-                this.$http.post('http://localhost:4941/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
+                this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
                     alert("logint out");
                     localStorage.clear();
                     this.logTxt = 'LOG IN';
@@ -175,7 +177,7 @@
             },
 //
             getSingleProject: function (project_id) {
-                this.$http.get('http://localhost:4941/api/v2/projects/' + project_id.toString())
+                this.$http.get('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/' + project_id.toString())
                     .then(function (response) {
                         this.projectData = response.body;
                         console.log(this.projectData);
@@ -201,7 +203,7 @@
                         }
 
 
-                        this.imageUri='http://localhost:4941/api/v2'+response.body.imageUri
+                        this.imageUri='http://csse-s365.canterbury.ac.nz:4842/api/v2'+response.body.imageUri;
                         this.ratio=this.projectData.progress.currentPledged/this.projectData.target*100;
                         console.log("ratio",this.projectData.progress.currentPledged/this.projectData.target);
                         for (let creator of this.projectData.creators) {
@@ -226,7 +228,7 @@
 //                alert("hahaha");
 ////                this.$resource['content-type'] = 'application/json';
 //                console.log(typeof project.id);
-//                this.$http.get('http://localhost:4941/api/v2/projects/'+ project.id.toString())
+//                this.$http.get('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+ project.id.toString())
 //
 //                    .then(function (response){
 ////                        for (let i = 0; i < this.projects.length; i++) {

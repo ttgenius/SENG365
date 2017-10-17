@@ -136,7 +136,7 @@
                 }else {
                     pa = 'email=';
                 }
-                    this.$http.post('http://localhost:4941/api/v2/users/login?'+pa + this.loginName + "&password=" + this.password).then(function (response) {
+                    this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/login?'+pa + this.loginName + "&password=" + this.password).then(function (response) {
 
                         console.log(response.body);
                         let token = response.body.token;

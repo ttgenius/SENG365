@@ -167,7 +167,7 @@
                     "anonymous":this.checkbox,
                     "card":{"authToken": this.authToken}
                 };
-                this.$http.post('http://localhost:4941/api/v2/projects/'+this.$route.params.id+'/pledge',pledgeData,{headers: {'X-Authorization': localStorage.getItem('token')}})
+                this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+this.$route.params.id+'/pledge',pledgeData,{headers: {'X-Authorization': localStorage.getItem('token')}})
                     .then(function(response) {
                         alert("pledged");
                         this.$router.push("/projects/" + this.$route.params.id);

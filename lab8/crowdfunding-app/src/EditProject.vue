@@ -10,7 +10,7 @@
                 <v-layout row wrap>
                     <v-flex xs12 sm12 md16 class="my-3">
                         <v-card>
-            <v-form class="red lighten-3" v-on:submit.prevent="updateProject" >
+            <v-form class="red lighten-3" v-if="projectData.open" v-on:submit.prevent="updateProject" >
                 <v-select
                 label="Select open/close to open/close the project.You will not be able to reopen the project once close the project"
                 v-model="select"
@@ -43,7 +43,7 @@
                         </thead>
 
                         <tbody>
-                        <tr v-for="(reward, index) in rewards" :key="index" :row="reward">
+                        <tr v-for="(reward, index) in projectData.rewards" :key="index" :row="reward">
                             <td>
                                 {{ index }}
                             </td>
@@ -124,6 +124,7 @@
                 image:null,
                 raw:"",
                 target: 0,
+                projectData:{},
                 rewards: [{amount: 0, description: ""}],
 
                 creator: {id: parseInt(localStorage.getItem('user_id'))}
@@ -131,6 +132,8 @@
         },
         mounted: function () {
             this.checklogin();
+            this.getSingleProject(this.$route.params.id);
+
 
         },
 
@@ -138,14 +141,14 @@
 
             addReward: function () {
                 try {
-                    this.rewards.push({});
+                    this.projectData.rewards.push({amount: parseInt(0), description: ""});
                 } catch (e) {
                     console.log(e);
                 }
             },
             removeReward: function (index) {
 //                alert(index);
-                this.rewards.splice(index, 1);
+                this.projectData.rewards.splice(index, 1);
             },
 
 
@@ -159,24 +162,43 @@
 
                 }
             },
+            getSingleProject: function (project_id) {
+                this.$http.get('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/' + project_id.toString())
+                    .then(function (response) {
+
+                        this.projectData = response.body;
+
+                    }, function (error) {
+                        this.error = error;
+                        this.errorFlag = true;
+                    });
+
+
+            },
             updateProject: function () {
                 alert("updating")
                 let open = true;
                 if (this.select === 'close') {
                     open = false
                 }
-                this.$http.put('http://localhost:4941/api/v2/projects/'+this.$route.params.id, {"open": open}, {headers: {'X-Authorization': localStorage.getItem('token')}})
+                this.$http.put('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+this.$route.params.id, {"open": open}, {headers: {'X-Authorization': localStorage.getItem('token')}})
                     .then(function (response) {
                         alert("updated");
                         this.$router.push("/projects/"+this.$route.params.id);
+
                     });
             },
             updateRewards:function(){
-                for (let reward of this.rewards){
-                    reward.amount= parseInt(reward.amount)
+                for (let reward of this.projectData.rewards){
+                    if(reward.amount<=0){
+                        this.rewards.splice(this.rewards.indexOf(reward),1);
+                        continue;
+                    }
+                    delete reward.id;
+                    reward.amount= parseInt(reward.amount);
                 }
-                alert("calling updating rewards")
-                this.$http.put('http://localhost:4941/api/v2/projects/'+this.$route.params.id+'/rewards',this.rewards,{headers: {'X-Authorization': localStorage.getItem('token')}})
+                alert("calling updating rewards");
+                this.$http.put('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+this.$route.params.id+'/rewards',this.projectData.rewards,{headers: {'X-Authorization': localStorage.getItem('token')}})
                     .then(function(response){
                         alert("updated rewards");
                         this.$router.push("/projects/"+this.$route.params.id);
@@ -185,12 +207,13 @@
             },
             updateImage:function(){
                 if(!this.image){
-                    alert("please select an image before uploading")
+                    alert("please select an image before uploading");
+                    return;
                 }
-                this.$http.put('http://localhost:4941/api/v2/projects/'+this.$route.params.id+'/image',this.image,{headers: {'X-Authorization': localStorage.getItem('token'),'Content-Type': 'image/png'}})
+                this.$http.put('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+this.$route.params.id+'/image',this.image,{headers: {'X-Authorization': localStorage.getItem('token'),'Content-Type': 'image/png'}})
                     .then(function(response){
                         alert("updateding image");
-                        this.$router.push("/projects/"+this.$route.params.id);
+                        this.$router.push("/projects/"+this.$route.params.id,function(){location.reload();});
 
                     });
 
