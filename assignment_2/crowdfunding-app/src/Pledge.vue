@@ -20,7 +20,7 @@
                                                                 label="Amount"
                                                                 v-model="amount"
                                                                 :error-messages="errors.collect('amount')"
-                                                                v-validate="'required|min_value:0'"
+                                                                v-validate="'required|min_value:0.01'"
                                                                 data-vv-name="amount"
                                                                 required
 
@@ -160,7 +160,7 @@
             },
 
             pledge:function(){
-                alert("anonymous: "+this.checkbox);
+//                alert("anonymous: "+this.checkbox);
                 let pledgeData = {
                     "id":parseInt(localStorage.getItem('user_id')),
                     "amount":parseInt(this.amount),

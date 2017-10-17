@@ -21,12 +21,12 @@
                 </v-flex>
                 <v-spacer></v-spacer>
 
-                <v-btn icon>
-                    <v-icon>search</v-icon>
-                </v-btn>
-                <v-btn icon>
-                    <v-icon dark>account_circle</v-icon>
-                </v-btn>
+                <!--<v-btn icon>-->
+                    <!--<v-icon>search</v-icon>-->
+                <!--</v-btn>-->
+                <!--<v-btn icon>-->
+                    <!--<v-icon dark>account_circle</v-icon>-->
+                <!--</v-btn>-->
                 <v-btn  color="white" flat v-if="logTxt==='LOG IN'" router to="/users">Sign Up
                 </v-btn>
 
@@ -52,8 +52,9 @@
 
                 <h2 class="black--text">{{projectData.title}}</h2>
                 <h6 class="black--text">{{projectData.subtitle}}</h6><br>
-                <div style="margin-bottom: 20px">
-                    <img    style="width:100%"
+                <div style="margin-bottom: 20px" >
+                    <!---->
+                    <img style="height:auto;width:40%"
                             v-bind:src="imageUri"
                             alt="no project image" onerror="this.onerror=null;this.src='https://www.beddingwarehouse.com.au/wp-content/uploads/2016/01/placeholder-featured-image-600x600.png';">
 
@@ -68,7 +69,15 @@
                     <span>Target: {{projectData.target}}</span><br>
                 <span>Current Pledged: {{projectData.progress.currentPledged}}</span><br>
                 <span>Number of Backers: {{projectData.progress.numberOfBackers}}</span><br>
-                <h4 style="margin-top: 40px">Rewards</h4>
+                        <ol>
+                            <h4 style="margin-top: 40px">Recent Pledges</h4>
+                            <li v-for="(item,index) in backers">
+                                <span>Backer name: {{item.username}}</span><br>
+                                <span>Amount: {{item.amount}}</span><br>
+                            </li>
+                        </ol>
+
+                        <h4 style="margin-top: 40px">Rewards</h4>
                 <ol>
                     <li v-for="(item,index) in projectData.rewards">
 
@@ -83,21 +92,14 @@
                         <span>Creator Name: {{item.username}}</span><br></li>
                 </ol>
 
-                <ol>
-                    <h4 style="margin-top: 40px">Recent Pledges</h4>
-                    <li v-for="(item,index) in backers">
-                        <span>Backer name: {{item.username}}</span><br>
-                        <span>Amount: {{item.amount}}</span><br>
-                    </li>
-                </ol>
 
                 <v-layout row >  <!--<v-card-actions>-->
                 <v-flex xs6>
 
                         <v-btn color="orange" dark @click="goBack" >Back to Projects</v-btn>
                 </v-flex>
-                <v-flex xs6 offset-xs6>
-                    <div v-if="found===true">   <!--<div v-if="found===true">-->
+                <v-flex xs6 offset-xs6 v-if="projectData.open===true">
+                    <div v-if="found===true">
                         <v-btn color="orange" dark @click="goEdit">Edit Project</v-btn>
                     </div>
                 <div v-else>
@@ -154,7 +156,7 @@
             checkLogin: function () {
 
                 if (localStorage.getItem('token')) {
-                    alert(localStorage.getItem('token'))
+//                    alert(localStorage.getItem('token'))
                     this.logTxt = 'LOG OUT'
                 } else {
                     this.logTxt = 'LOG IN'
@@ -164,7 +166,7 @@
             logout: function () {
 
                 this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
-                    alert("logint out");
+//                    alert("logint out");
                     localStorage.clear();
                     this.logTxt = 'LOG IN';
                     alert("successfully logged out")
@@ -208,11 +210,11 @@
                         console.log("ratio",this.projectData.progress.currentPledged/this.projectData.target);
                         for (let creator of this.projectData.creators) {
                             if (creator.id == localStorage.getItem('user_id')) {
-                                alert("is creator");
+//                                alert("is creator");
                                 this.found = true;
                                 break;
                             } else {
-                                alert("not a creator")
+//                                alert("not a creator")
                             }
                         }
                     }, function (error) {
@@ -223,27 +225,6 @@
 
             },
 
-
-//            viewProject: function (project) {
-//                alert("hahaha");
-////                this.$resource['content-type'] = 'application/json';
-//                console.log(typeof project.id);
-//                this.$http.get('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+ project.id.toString())
-//
-//                    .then(function (response){
-////                        for (let i = 0; i < this.projects.length; i++) {
-////                            if (parseInt(projects[i].id) === parseInt(response.data.id)) {
-//////                                console.log("this response",response.data);
-//                        console.log("response",response.data.title);
-//                        this.title = response.data.title;
-//                        return response.data
-////                            }
-////                        }
-//                    }, function (error) {
-//                        this.error = error;
-//                        this.errorFlag = true;
-//                    });
-//            },
 
             goBack: function () {
                 this.$router.push("/projects");

@@ -25,12 +25,12 @@
 
                         <v-spacer></v-spacer>
 
-                        <v-btn icon>
-                            <v-icon>search</v-icon>
-                        </v-btn>
-                        <v-btn icon>
-                            <v-icon dark>account_circle</v-icon>
-                        </v-btn>
+                        <!--<v-btn icon>-->
+                            <!--<v-icon>search</v-icon>-->
+                        <!--</v-btn>-->
+                        <!--<v-btn icon>-->
+                            <!--<v-icon>account_circle</v-icon>-->
+                        <!--</v-btn>-->
                         <v-btn color="white" flat v-if="logTxt==='LOG IN'" router to="/users">Sign Up
                         </v-btn>
 
@@ -51,45 +51,6 @@
                             </v-carousel-item>
                         </v-carousel>
                     </v-flex>
-                    <!--<v-app id="inspire">-->
-                    <!--<v-tabs dark fixed centered>-->
-                    <!--<v-toolbar extended class="light-blue" dark>-->
-                    <!--<v-toolbar-side-icon></v-toolbar-side-icon>-->
-                    <!--<v-spacer></v-spacer>-->
-                    <!--<v-btn icon>-->
-                    <!--<v-icon>search</v-icon>-->
-                    <!--</v-btn>-->
-                    <!--<v-btn icon>-->
-                    <!--<v-icon>more_vert</v-icon>-->
-                    <!--</v-btn>-->
-                    <!--<v-toolbar-title slot="extension" class="display-2">-->
-                    <!--<router-link :to="{path: '/'}">Crowdfunding-->
-                    <!--</router-link></v-toolbar-title>-->
-                    <!--</v-toolbar>-->
-                    <!--<v-tabs-bar class="cyan">-->
-                    <!--<v-tabs-slider class="yellow"></v-tabs-slider>-->
-                    <!--<v-tabs-item>-->
-
-                    <!--<router-link :to="{path: 'users'}">Sign Up</router-link>-->
-
-                    <!--</v-tabs-item>-->
-                    <!--<v-tabs-item>-->
-
-                    <!--<router-link :to="{path: 'users/login'}">Log in</router-link>-->
-
-                    <!--</v-tabs-item>-->
-                    <!--</v-tabs-bar>-->
-
-                    <!--</v-tabs>-->
-                    <!--</v-app>-->
-
-                    <!--</div>-->
-                    <!--Home Page-->
-                    <!--<a href="users">Sign up</a>-->
-                    <!--<a href="users/login">Log in</a>-->
-                    <!--<a href="projects">View all project</a>-->
-                    <!--<a href="projects/create">Create a project</a>-->
-                    <!--</div>-->
                 </v-layout>
 
         </v-app>
@@ -144,7 +105,12 @@
 
             },
             toEditUser: function () {
+                if (localStorage.getItem('user_id')){
                 this.$router.push('/users/' + localStorage.getItem('user_id'))
+            }else{
+                    alert("not logged in!");
+                    this.$router.push('/');
+                }
             },
 
             getProjects: function () {

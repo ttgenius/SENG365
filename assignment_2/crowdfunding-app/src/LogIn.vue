@@ -48,18 +48,6 @@
                                         ></v-text-field>
                                     </v-flex>
                                 </v-layout>
-                                <!--<v-layout row>-->
-                                    <!--<v-flex xs22>-->
-                                        <!--<v-text-field-->
-                                                <!--name="email"-->
-                                                <!--label="Email"-->
-                                                <!--id="email"-->
-                                                <!--v-model="email"-->
-                                                <!--type="email"-->
-                                                <!--required-->
-                                        <!--&gt;</v-text-field>-->
-                                    <!--</v-flex>-->
-                                <!--</v-layout>-->
                                 <v-layout row>
                                     <v-flex xs12>
                                         <v-text-field
@@ -111,17 +99,6 @@
         },
 
         methods: {
-            checkRules:function() {
-
-                if (isEmail === true) {
-                    this.rule='email';
-                    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.loginName)? 'E-mail must be valid' : true;
-                } else {
-                    this.rule = 'name';
-                    return /^[a-zA-Z0-9_]*$/.test(this.loginName) ? 'Username can only contain letters, numbers and underscores' : true;
-                }
-            },
-
             LogIn: function () {
                 let isEmail = false;
                 for (let char of this.loginName) {
@@ -142,27 +119,13 @@
                         let token = response.body.token;
                         let user_id = response.body.id;
                         console.log(token);
-//                            this.$store.commit('login', {token:token,user_id:user_id});
-//                            this.$store.dispatch('login', {token:token,user_id:user_id});
-//                            console.log("adsfasdf "+this.$store.state.islogIn);
-//                            console.log("adsfasdf "+this.$store.state.token);
-//                            console.log("adsfasdf "+this.$store.state.user_id);
                         localStorage.setItem('token', token);
                         localStorage.setItem('user_id', user_id);
-                        alert(localStorage.getItem('token', token));
+//                        alert(localStorage.getItem('token', token));
                         this.$router.push('/')
-//                            this.$store.dispatch("login", {
-//                               "token":token
-//                            }).then(() => {
-//                                this.$router.push("/")
-//                            });
                     }, function (error) {
                         this.error = error;
                         this.errorFlag = true;
-//                            alert(this.$store.state.islogIn);
-//                            alert(this.$store.state.user_id);
-//                            alert(window.localStorage.getItem('token'));
-//                            alert(window.localStorage.getItem('user_id'));
                         alert(error.response.data);
                         console.log(error)
                     });
@@ -170,8 +133,6 @@
 
 
             }
-
-
 
     }
 </script>

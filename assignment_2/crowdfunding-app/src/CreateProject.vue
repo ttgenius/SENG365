@@ -3,7 +3,6 @@
         {{error.bodyText}}
     </div>
     <div v-else>
-        <!--<div id="app">-->
             <v-app id="inspire">
                 <v-toolbar color="indigo" dark>
 
@@ -36,7 +35,7 @@
                 </v-toolbar>
                 <v-container>
                     <v-layout row>
-                        <v-flex xs11 offset-sm1>
+                        <v-flex xs10 offset-sm1>
                             <v-card>
                                 <v-card-text>
                                     <v-container>
@@ -144,28 +143,10 @@
                                             <img :src="imageUrl" height="150">
                                         </v-flex>
                                     </v-layout>
-                                    <!--<v-btn raised class="primary" type="submit">Update Image</v-btn>-->
                             </v-card>
                         </v-flex>
                     </v-layout>
 
-                    <!--<v-select-->
-                            <!--label="Select open/close to open/close the project"-->
-                            <!--v-model="select"-->
-                            <!--:items="items"-->
-                            <!--:error-messages="errors.collect('select')"-->
-                            <!--v-validate="'required'"-->
-                            <!--data-vv-name="select"-->
-                            <!--required-->
-                    <!--&gt;</v-select>-->
-                    <!--<v-checkbox-->
-                            <!--label="Do you agree?"-->
-                            <!--v-model="checkbox"-->
-                            <!--:rules="[v => !!v || 'You must agree to continue!']"-->
-                            <!--required-->
-                    <!--&gt;</v-checkbox>--
-<!---->
-                    <!--<v-btn type="submit">Create</v-btn>-->
                     <v-flex xs12>
                         <v-btn type="submit">Create</v-btn>
                     </v-flex>
@@ -177,7 +158,6 @@
                     </v-layout>
                 </v-container>
             </v-app>
-        <!--</div>-->
     </div>
 </template>
 
@@ -247,13 +227,7 @@
                             this.error = error;
                             this.errorFlag = true;
                         });
-//                }, function (error) {
-//                    alert("err")
-//                    this.error = error;
-//                    this.errorFlag = true;
-//
-//                });
-//
+
             },
 
             addReward: function () {
@@ -283,7 +257,6 @@
                 this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
                     alert("logint out");
                     localStorage.clear();
-                    this.logTxt = 'LOG IN';
                     alert("successfully logged out")
                 }, function (error) {
                     this.error = error;
@@ -296,7 +269,6 @@
                 this.$http.put('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+project_id+'/image',this.image,{headers: {'X-Authorization': localStorage.getItem('token'),'Content-Type': 'image/png'}})
                     .then(function(response) {
                         alert("updateding image");
-//                        this.$router.push("/projects/" + this.$route.params.id);
                     },function (error) {
                         this.error = error;
                         this.errorFlag = true;

@@ -15,20 +15,31 @@
                                 </v-btn>
 
 
-                                <v-btn color="white" flat hidden router to="/projects/">View All Projects</v-btn>
+                                <v-btn color="white" flat hidden @click="toProjects">View All Projects</v-btn>
 
                                 <v-flex xs6 offset-1>
                                     <v-btn color="white" flat hidden style="font-size :20px" router to="/">Crowdfunding Home
                                     </v-btn>
                                 </v-flex>
                                 <v-spacer></v-spacer>
+                                <v-form>
+                                    <v-layout row>
 
-                                <v-btn icon>
-                                    <v-icon>search</v-icon>
-                                </v-btn>
-                                <v-btn icon>
-                                    <v-icon dark>account_circle</v-icon>
-                                </v-btn>
+                                            <v-text-field
+                                                    solo
+                                                    label="Search"
+                                                    name="search"
+                                                    id="search"
+                                                    v-model="search"
+                                                    type="search"
+                                            ></v-text-field>
+
+                                        <v-btn @click="searchProject" icon>
+                                            <v-icon>search</v-icon>
+                                        </v-btn>
+                                    </v-layout>
+                                </v-form>
+
                                 <v-btn  color="white" flat v-if="logTxt==='LOG IN'" router to="/users">Sign Up
                                 </v-btn>
 
@@ -75,9 +86,10 @@
                                             </v-card-media>
                                                 <v-card-title style="padding:20px" primary-title>
                                                     <div>
-                                                        <h3 class="headline mb-0" style="height:60px">{{project.title}}</h3>
+                                                        <h3 class="headline mb-0" style="height:60px">{{project.title}}<span v-if="!project.open" style="text-align: left;padding:10px;color:red">(Closed)</span></h3>
                                                         <p style="text-align: left;height:60px;padding:10px">{{project.subtitle}}</p>
                                                     </div>
+
                                                 </v-card-title>
                                             <div style="margin-bottom: 10px">
                                                 <v-card-actions>
@@ -88,7 +100,7 @@
                                     </v-flex>
 
                                     <v-flex xs12 sm6 offset-sm3>
-                                        <div>
+                                        <div v-if="!searched">
                                         <v-btn class="primary" dark v-if="startIndex>0" @click="previous">previous</v-btn>
                                         <v-btn class="primary" dark v-if="projects.length!=0" @click="next">next</v-btn>
                                     </div>
@@ -124,7 +136,9 @@
                 user_id:localStorage.getItem('user_id'),
                 filters:null,
                 item:null,
-                logTxt:""
+                logTxt:"",
+                search:"",
+                searched:false
             }
         },
 
@@ -136,6 +150,7 @@
         methods: {
 
             updateProjects: function () {
+                this.searched = false;
                 let params = {
                     params: {
                         startIndex: this.startIndex,
@@ -144,16 +159,29 @@
                     }
                 };
                 if (this.filters === 'Creator View') {
-                    params.params.creator = parseInt(this.user_id);
+                    params = {
+                        params: {
+                            startIndex: this.startIndex,
+                            count: this.count,
+                            creator: parseInt(this.user_id)
+                }
+                }
+
                 }
                 if (this.filters === 'Backer View') {
-                    params.params.backer = parseInt(this.user_id);
+                    params = {
+                        params: {
+                            startIndex: this.startIndex,
+                            count: this.count,
+                            backer: parseInt(this.user_id)
+                        }
+                    }
                 }
 
                 this.$http.get('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects?', params).then(function (response) {
                     if (response.body.length === 0) {
                         alert("Nothing here");
-                        this.projects=[]
+                        this.projects = []
 
                     }
                     else {
@@ -161,7 +189,10 @@
                         console.log(this.projects);
                     }
 
-                })
+                }, function (error) {
+                    this.error = error;
+                    this.errorFlag = true;
+                });
             },
 
             next: function () {
@@ -174,7 +205,7 @@
                 this.updateProjects()
             },
             goto: function (id) {
-                this.$router.push('/projects/'+id);
+                this.$router.push('/projects/' + id);
             },
 
             filter: function (item) {
@@ -183,13 +214,13 @@
                 this.updateProjects();
 
             },
-            toHome:function(){
+            toHome: function () {
                 this.$router.push('/')
             },
             checkLogin: function () {
 
                 if (localStorage.getItem('token')) {
-                    alert(localStorage.getItem('token'))
+//                    alert(localStorage.getItem('token'))
                     this.logTxt = 'LOG OUT'
                 } else {
                     this.logTxt = 'LOG IN'
@@ -204,19 +235,81 @@
             },
             logout: function () {
 
-                this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/logout',"",{headers:{'X-Authorization':localStorage.getItem('token')}}).then(function (response) {
-                    alert("logint out");
+                this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
+//                    alert("logint out");
                     localStorage.clear();
                     this.logTxt = 'LOG IN';
                     alert("successfully logged out")
+                    this.$router.push('/')
                 }, function (error) {
                     this.error = error;
                     localStorage.clear();
                     this.errorFlag = true;
                 });
 
-            }
+            },
+            toProjects:function(){
 
+                    this.searched = false;
+                    this.startIndex = 0;
+                    this.filters='Clear Filter';
+                    this.updateProjects();
+
+
+
+            },
+            searchProject: function () {
+                if (this.search !=='') {
+                    this.searched = true;
+                    let params = {
+                        params: {
+                            startIndex: 0,
+                            open: true,
+                        }
+                    };
+                    this.$http.get('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects?', params).then(function (response) {
+                        if (response.body.length === 0) {
+                            alert("Nothing here");
+                            this.projects = []
+
+                        }
+                        else {
+
+                            let matchedProject = []
+                            this.projects = response.body;
+                            console.log("searching", this.search.toLowerCase());
+
+
+                            for (let project of this.projects) {
+                                console.log("title", project.title.toLowerCase())
+                                console.log("includes?", project.title.toLowerCase().includes(this.search.toLowerCase()) || project.subtitle.toString().includes(this.search.toLowerCase()))
+                                if ((project.title.toLowerCase().includes(this.search.toLowerCase())) || (project.subtitle.toString().includes(this.search.toLowerCase()))) {
+                                    matchedProject.push(project)
+                                    console.log("title", project.title)
+
+                                } else {
+                                    console.log("dafas")
+                                }
+                            }
+                            if (matchedProject.length === 0) {
+                                return alert("nothing matches!");
+
+                            } else {
+                                console.log("found projects", this.projects)
+                                this.projects = matchedProject
+                            }
+
+                        }
+
+                    }, function (error) {
+                        this.error = error;
+                        this.errorFlag = true;
+                    });
+                }else{
+                    this.updateProjects();
+                }
+
+            }
         }
     }
 </script>

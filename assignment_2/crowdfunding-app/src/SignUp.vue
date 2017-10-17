@@ -110,6 +110,7 @@
         </v-layout>
     </v-container>
     </v-app>
+
 </template>
 
 
@@ -158,30 +159,28 @@
                             let token = response.body.token;
                             let user_id = response.body.id;
                             console.log(token);
-//                            this.$store.commit('login', {token:token,user_id:user_id});
-//                            this.$store.dispatch('login', {token:token,user_id:user_id});
-//                            console.log("adsfasdf "+this.$store.state.islogIn);
-//                            console.log("adsfasdf "+this.$store.state.token);
-//                            console.log("adsfasdf "+this.$store.state.user_id);
+//
                             localStorage.setItem('token',token);
                             localStorage.setItem('user_id',user_id);
 //                            alert(islogIn);
-                            alert(localStorage.getItem('token',token));
+//                            alert(localStorage.getItem('token',token));
 //
                             this.$router.push('/')
 //
                         }, function (error) {
                             this.error = error;
                             this.errorFlag = true;
-//                            alert(this.$store.state.islogIn);
-//                            alert(this.$store.state.user_id);
-//                            alert(window.localStorage.getItem('token'));
-//                            alert(window.localStorage.getItem('user_id'));
-                            alert(error.response.data);
+//
+                            alert("failed to log in");
                             console.log(error)
                         });
 
 
+                    },function (error) {
+                        this.error = error;
+                        this.errorFlag = true;
+                        return alert("username or email already exist!");
+                        console.log(error)
                     });
 
 

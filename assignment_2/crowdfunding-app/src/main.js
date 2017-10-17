@@ -9,7 +9,6 @@ import singleProject from './singleProject.vue'
 import CreateProject from './CreateProject.vue'
 import EditProject from './EditProject.vue'
 import Pledge from './Pledge.vue'
-import EditUser from './EditUser.vue'
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
@@ -23,8 +22,6 @@ Vue.use(Vuetify);
 import Vuex from 'vuex';
 Vue.use(Vuex);
 
-import createPersistedState from 'vuex-persistedstate'
-import * as Cookies from 'js-cookie'
 
 const config = {
     errorBagName: 'errors', // change if property conflicts.
@@ -75,11 +72,7 @@ const routes=[
         name:"logout",
         component:Users
     },
-    {
-        path: "/users/:id",
-        name:"user",
-        component:EditUser
-    },
+
     {
         path: "/projects",
         name:"projects",

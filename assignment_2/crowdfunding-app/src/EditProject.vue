@@ -34,9 +34,9 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th style="width: 40px;">Reward No.</th>
-                            <th style="width: 80px;">Amount</th>
-                            <th>Description</th>
+                            <th style="width: 40px;font-size: 15px">Reward No.</th>
+                            <th style="width: 80px;font-size: 15px">Amount</th>
+                            <th style="font-size: 15px">Description</th>
                             <v-btn @click="addReward()">add reward</v-btn>
                         </tr>
 
@@ -176,7 +176,7 @@
 
             },
             updateProject: function () {
-                alert("updating")
+//                alert("updating")
                 let open = true;
                 if (this.select === 'close') {
                     open = false
@@ -186,6 +186,9 @@
                         alert("updated");
                         this.$router.push("/projects/"+this.$route.params.id);
 
+                    },function (error) {
+                        this.error = error;
+                        this.errorFlag = true
                     });
             },
             updateRewards:function(){
@@ -197,12 +200,15 @@
                     delete reward.id;
                     reward.amount= parseInt(reward.amount);
                 }
-                alert("calling updating rewards");
+//                alert("calling updating rewards");
                 this.$http.put('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+this.$route.params.id+'/rewards',this.projectData.rewards,{headers: {'X-Authorization': localStorage.getItem('token')}})
                     .then(function(response){
                         alert("updated rewards");
                         this.$router.push("/projects/"+this.$route.params.id);
 
+                    },function (error) {
+                        this.error = error;
+                        this.errorFlag = true
                     });
             },
             updateImage:function(){
@@ -215,6 +221,9 @@
                         alert("updateding image");
                         this.$router.push("/projects/"+this.$route.params.id,function(){location.reload();});
 
+                    },function (error) {
+                        this.error = error;
+                        this.errorFlag = true
                     });
 
             },
