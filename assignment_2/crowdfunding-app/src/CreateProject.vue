@@ -55,15 +55,16 @@
                     <v-text-field
                             label="Subtitle"
                             v-model="subtitle"
-                            :error-messages="errors.collect('subtitle')"
                             :counter="256"
+                            :error-messages="errors.collect('subtitle')"
                             data-vv-name="subtitle"
                     ></v-text-field>
                     <v-text-field
                             label="Target"
                             v-model="target"
+                            :counter="9"
                             :error-messages="errors.collect('target')"
-                            v-validate="'required|min_value:0'"
+                            v-validate="'required|min_value:0|max:9'"
                             data-vv-name="target"
                             required
                     ></v-text-field>
@@ -101,8 +102,9 @@
                                 <td>
                                     <v-text-field
                                             v-model="reward.amount"
+                                            :counter="9"
                                             :error-messages="errors.collect('reward.amount')"
-                                            v-validate="'min_value:0'"
+                                            v-validate="'min_value:0|max:9'"
                                             data-vv-name="reward.amount"
                                            >
                                     </v-text-field>
@@ -190,30 +192,30 @@
         },
 
         methods: {
-
             createProject: function () {
-                for (let reward of this.rewards){
-                    reward.amount= parseInt(reward.amount)*100
-                    if(reward.amount<=0){
-                        this.rewards.splice(this.rewards.indexOf(reward),1);
+                if (this.target.length <= 9 && this.title.length <= 256) {
+                    for (let reward of this.rewards) {
+                        reward.amount = parseInt(reward.amount) * 100;
+                        if (reward.amount <= 0) {
+                            this.rewards.splice(this.rewards.indexOf(reward), 1);
+                        }
                     }
-                }
                     let projectData = {
                         "title": this.title,
                         "subtitle": this.subtitle,
                         "description": this.description,
-                        "target": parseInt(this.target)*100,
+                        "target": parseInt(this.target) * 100,
                         "creators": [this.creator],
                         "rewards": this.rewards
 //
 
                     };
 //                    console.log("projectdata", projectData);
-                    this.$http.post('http://csse-s365.canterbury.ac.nz:4824/api/v2/projects',projectData,{headers:{'X-Authorization':localStorage.getItem('token')}})
+                    this.$http.post('http://csse-s365.canterbury.ac.nz:4824/api/v2/projects', projectData, {headers: {'X-Authorization': localStorage.getItem('token')}})
                         .then(function (response) {
 //                            console.log(response.data);
                             let project_id = response.data.id;
-                            if(this.image){
+                            if (this.image) {
                                 this.updateImage(project_id)
                             }
                             this.$router.push('/')
@@ -222,6 +224,10 @@
                             this.errorFlag = true;
                         });
 
+                } else {
+                    this.error = "some fields are not filled in correctly";
+                    this.errorFlag = true
+                }
             },
 
             addReward: function () {

@@ -18,14 +18,7 @@
             </v-flex>
 
             <v-spacer></v-spacer>
-
-            <v-btn icon>
-                <v-icon>search</v-icon>
-            </v-btn>
-            <v-btn icon>
-                <v-icon dark>account_circle</v-icon>
-            </v-btn>
-
+            
         </v-toolbar>
     <v-container>
         <v-layout row>
@@ -118,10 +111,10 @@
                 }
                     this.$http.post('http://csse-s365.canterbury.ac.nz:4824/api/v2/users/login?'+pa + this.loginName + "&password=" + this.password).then(function (response) {
 
-                        console.log(response.body);
+//                        console.log(response.body);
                         let token = response.body.token;
                         let user_id = response.body.id;
-                        console.log(token);
+//                        console.log(token);
                         localStorage.setItem('token', token);
                         localStorage.setItem('user_id', user_id);
                         this.$router.push('/')

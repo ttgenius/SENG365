@@ -115,7 +115,7 @@
 //                        console.log("dsafdsafsaf", response.data);
                         let count = 0;
                         for (let project of projects) {
-                            console.log("xx"+project.imageUri);
+//                            console.log("xx"+project.imageUri);
                             if (count < 4 && project.open === true && project.imageUri !== null && project.imageUri !== undefined) {
 
 

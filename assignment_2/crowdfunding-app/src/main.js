@@ -48,7 +48,6 @@ const config = {
 import VeeValidate from 'vee-validate';
 Vue.use(VeeValidate,config);
 
-// Vue.http.options.emulateJSON=true;
 
 
 const routes=[
@@ -113,7 +112,7 @@ const routes=[
         name: "pledge",
         component: Projects
     }
-    //admin needs to be imp?
+
 ];
 
 const router = new VueRouter({
@@ -121,101 +120,11 @@ const router = new VueRouter({
     mode: 'history'
 });
 
-console.log("hahahahah");
 
-// const store = new Vuex.Store({
-//
-//   state: {
-//       token:"",
-//       islogIn:false,
-//       user_id:-1
-//   },
-//     // plugins: [
-//     //     createPersistedState({
-//     // // //         // storage: {
-//     // // //         //     getItem: token => token,
-//     // // //         //     setItem: (token) => {this.islogIn=true;this.token=token;},
-//     // // //         //     removeItem: ()=>this.islogIn=false
-//     // // //         // }
-//     //     })
-//     // ],
-//
-//   mutations: {
-//     login(state,token,user_id) {
-//       state.islogIn=true;
-//       state.token = token;
-//       state.user_id = user_id;
-//
-//     },
-//       logout(state){
-//         console.log("logggin out")
-//         state.islogIn=false;
-//         state.token="";
-//         state.user_id=-1;
-//           // localStorage.removeItem('token');
-//           // localStorage.removeItem('id')
-//       }
-//
-//   },
-//     // getters: {
-//     //     islogIn: state => {
-//     //         return state.islogIn
-//     //     }
-//     // }
-// actions:{
-//       login({commit}){
-//           commit('login')
-//       }
-//
-// }
 
-// });
-// const LOGIN = "LOGIN";
-// const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-// const LOGOUT = "LOGOUT";
-//
-// const store = new Vuex.Store({
-//     state: {
-//         isLoggedIn: !!localStorage.getItem("token")
-//     },
-//     mutations: {
-//         [LOGIN] (state) {
-//             state.pending = true;
-//         },
-//         [LOGIN_SUCCESS] (state) {
-//             state.isLoggedIn = true;
-//             state.pending = false;
-//         },
-//         [LOGOUT](state) {
-//             state.isLoggedIn = false;
-//         }
-//     },
-//     actions: {
-//         login({ commit }, token) {
-//             commit(LOGIN); // show spinner
-//             return new Promise(resolve => {
-//                 setTimeout(() => {
-//                     localStorage.setItem("token", token);
-//                     commit(LOGIN_SUCCESS);
-//                     resolve();
-//                 }, 1000);
-//             });
-//         },
-//         logout({ commit }) {
-//             localStorage.removeItem("token");
-//             commit(LOGOUT);
-//         }
-//     },
-//     getters: {
-//         isLoggedIn: state => {
-//             return state.isLoggedIn
-//         }
-//     }
-// });
 
 new Vue({
     el: '#app',
-    // store:store,
     router: router,
     render: h => h(App)
 });

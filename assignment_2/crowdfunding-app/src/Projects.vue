@@ -7,7 +7,7 @@
                             <v-toolbar color="indigo" dark>
                                 <v-toolbar-side-icon></v-toolbar-side-icon>
 
-                                <v-btn color="white" style="overflow: hidden;" flat router to="/projects/create">
+                                <v-btn color="white" style="overflow: hidden;" flat @click="toCreate">
                                     Create a Project
                                 </v-btn>
 
@@ -263,6 +263,15 @@
 
 
             },
+            toCreate:function(){
+                if(localStorage.getItem('token')){
+                    this.$router.push('/projects/create')
+                }else{
+                    this.error="Not logged in!";
+                    this.errorFlag = true;
+                }
+
+            },
             searchProjectAndClear:function(){
                 this.infoFlag=false;
                 this.startIndex=0;
@@ -308,7 +317,7 @@
                                 this.infoFlag=true;
 
                             } else {
-                                console.log("found projects", this.projects);
+//                                console.log("found projects", this.projects);
                                 this.projects = matchedProject.slice(this.startIndex,this.startIndex+this.count);
                             }
 

@@ -33,8 +33,9 @@
                             <td>
                                 <v-text-field
                                         v-model="reward.amount"
+                                        :counter="9"
                                         :error-messages="errors.collect('reward.amount')"
-                                        v-validate="'min_value:0'"
+                                        v-validate="'min_value:0|max:9'"
                                         data-vv-name="reward.amount">
 
                                 </v-text-field>
@@ -193,7 +194,11 @@
                     });
             },
             updateRewards:function(){
+                let correct=true;
                 for (let reward of this.projectData.rewards){
+                    if (reward.amount.length>9 || reward.amount<0){
+                        correct=false
+                    }
                     if(reward.amount<=0){
                         this.rewards.splice(this.rewards.indexOf(reward),1);
                         continue;
@@ -201,14 +206,19 @@
                     delete reward.id;
                     reward.amount= parseInt(reward.amount)*100;
                 }
+                if(correct===true){
                 this.$http.put('http://csse-s365.canterbury.ac.nz:4824/api/v2/projects/'+this.$route.params.id+'/rewards',this.projectData.rewards,{headers: {'X-Authorization': localStorage.getItem('token')}})
                     .then(function(response){
                         this.$router.push("/projects/"+this.$route.params.id);
 
                     },function (error) {
-                        this.error = "Please fill in the reward amount field";
+                        this.error = "Please fill in the reward field correctly";
                         this.errorFlag = true;
                     });
+            }else{
+                    this.error = "Please fill in the reward field correctly";
+                    this.errorFlag = true;
+                }
             },
             updateImage:function(){
                 if(!this.image){

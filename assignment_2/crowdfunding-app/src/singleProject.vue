@@ -3,7 +3,7 @@
         <v-app id="inspire">
             <v-toolbar color="indigo" dark>
                 <v-toolbar-side-icon></v-toolbar-side-icon>
-                <v-btn color="white" style="overflow: hidden;" flat router to="/projects/create">
+                <v-btn color="white" style="overflow: hidden;" flat @click="toCreate">
                     Create a Project
                 </v-btn>
 
@@ -33,7 +33,9 @@
 
                 </div>
             </v-toolbar>
-
+            <v-alert v-if="errorFlag" color="error" icon="warning" value="true">
+                {{error}}
+            </v-alert>
         <v-layout>
 
             <v-flex xs12 lg8 offset-sm2>
@@ -51,13 +53,13 @@
                 </div>
                 <h4 style="margin-top: 20px">Project description</h4>
                  <v-flex xs8 offset-xs2>
-                <p style="text-align: left">{{projectData.description}}</p>
+                <p>{{projectData.description}}</p>
                  </v-flex>
                 <h4 style="margin-top: 40px">Progress</h4>
                     <v-flex xs8 offset-xs2>
                     <v-progress-linear v-model="ratio"></v-progress-linear>
                     </v-flex>
-                    <span>Target: ${{projectData.target/100.0}}</span><br>
+                    <span>Target: ${{projectData.target/100.}}</span><br>
                 <span>Current Pledged: ${{projectData.progress.currentPledged/100.0}}</span><br>
                 <span>Number of Backers: {{projectData.progress.numberOfBackers}}</span><br>
                         <ol>
@@ -185,7 +187,7 @@
                 this.$http.get('http://csse-s365.canterbury.ac.nz:4824/api/v2/projects/' + project_id.toString())
                     .then(function (response) {
                         this.projectData = response.body;
-                        console.log(this.projectData);
+//                        console.log(this.projectData);
                         let i = 0;
                         let anon_flag = false;
                         let anon_index = -1;
@@ -209,7 +211,7 @@
 
                         this.imageUri = 'http://csse-s365.canterbury.ac.nz:4824/api/v2' + response.body.imageUri;
                         this.ratio = this.projectData.progress.currentPledged / this.projectData.target * 100;
-                        console.log("ratio", this.projectData.progress.currentPledged / this.projectData.target);
+//                        console.log("ratio", this.projectData.progress.currentPledged / this.projectData.target);
                         for (let creator of this.projectData.creators) {
                             if (creator.id == localStorage.getItem('user_id')) {
                                 this.found = true;
@@ -221,6 +223,14 @@
                         this.errorFlag = true;
                     });
 
+
+            },toCreate:function(){
+                if(localStorage.getItem('token')){
+                    this.$router.push('/projects/create')
+                }else{
+                    this.error="Not logged in!";
+                    this.errorFlag = true;
+                }
 
             },
 

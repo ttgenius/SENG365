@@ -10,6 +10,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/Pledge.vue" afterPath="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/Pledge.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/Projects.vue" afterPath="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/Projects.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/SignUp.vue" afterPath="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/SignUp.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/main.js" afterPath="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/singleProject.vue" afterPath="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/singleProject.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -31,8 +32,8 @@
       <file leaf-file-name="CreateProject.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/CreateProject.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-156">
-              <caret line="211" column="71" lean-forward="false" selection-start-line="211" selection-start-column="71" selection-end-line="211" selection-end-column="71" />
+            <state relative-caret-position="1617">
+              <caret line="256" column="79" lean-forward="false" selection-start-line="256" selection-start-column="33" selection-end-line="256" selection-end-column="79" />
               <folding>
                 <element signature="n#style#0;n#v-btn#0;n#v-toolbar#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#v-btn#0;n#v-flex#0;n#v-toolbar#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -44,11 +45,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Projects.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Users.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lab8/chat-app/src/Users.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2048">
+              <caret line="7" column="16" lean-forward="true" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="77" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Projects.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/Projects.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="583">
-              <caret line="168" column="46" lean-forward="true" selection-start-line="168" selection-start-column="46" selection-end-line="168" selection-end-column="46" />
+            <state relative-caret-position="144">
+              <caret line="9" column="102" lean-forward="true" selection-start-line="9" selection-start-column="102" selection-end-line="9" selection-end-column="102" />
               <folding>
                 <element signature="n#style#0;n#v-btn#0;n#v-toolbar#0;n#v-layout#0;n#div#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#v-btn#0;n#v-flex#0;n#v-toolbar#0;n#v-layout#0;n#div#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
@@ -69,13 +80,12 @@
       <file leaf-file-name="singleProject.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/singleProject.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="33">
-              <caret line="61" column="36" lean-forward="false" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="36" />
+            <state relative-caret-position="-1808">
+              <caret line="61" column="60" lean-forward="false" selection-start-line="61" selection-start-column="60" selection-end-line="61" selection-end-column="60" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#0;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#h4#0;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#v-flex#0;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#h4#1;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#h4#0;n#ol#0;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#h4#2;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -86,11 +96,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LogIn.vue" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LogIn.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/LogIn.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="34" column="32" lean-forward="false" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="32" />
+            <state relative-caret-position="320">
+              <caret line="20" column="12" lean-forward="false" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -99,12 +109,13 @@
       <file leaf-file-name="EditProject.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/EditProject.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3424">
-              <caret line="214" column="35" lean-forward="false" selection-start-line="214" selection-start-column="35" selection-end-line="214" selection-end-column="35" />
+            <state relative-caret-position="858">
+              <caret line="146" column="27" lean-forward="false" selection-start-line="146" selection-start-column="20" selection-end-line="146" selection-end-column="27" />
               <folding>
                 <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#0;n#v-form#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#0;n#v-form#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#0;n#v-form#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#v-form#0;n#v-card#0;n#v-flex#0;n#v-layout#1;n#v-container#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -113,8 +124,8 @@
       <file leaf-file-name="Pledge.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/Pledge.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1306">
-              <caret line="164" column="54" lean-forward="false" selection-start-line="164" selection-start-column="54" selection-end-line="164" selection-end-column="54" />
+            <state relative-caret-position="1616">
+              <caret line="101" column="39" lean-forward="false" selection-start-line="101" selection-start-column="39" selection-end-line="101" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -123,8 +134,8 @@
       <file leaf-file-name="Home.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/Home.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="44" column="17" lean-forward="true" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
+            <state relative-caret-position="543">
+              <caret line="108" column="14" lean-forward="true" selection-start-line="100" selection-start-column="12" selection-end-line="108" selection-end-column="14" />
               <folding>
                 <element signature="n#style#0;n#v-btn#0;n#v-flex#0;n#v-toolbar#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
               </folding>
@@ -135,8 +146,8 @@
       <file leaf-file-name="SignUp.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/SignUp.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="497">
-              <caret line="150" column="209" lean-forward="false" selection-start-line="150" selection-start-column="209" selection-end-line="150" selection-end-column="209" />
+            <state relative-caret-position="1690">
+              <caret line="138" column="49" lean-forward="true" selection-start-line="138" selection-start-column="49" selection-end-line="138" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -145,9 +156,11 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="2016">
+              <caret line="126" column="15" lean-forward="false" selection-start-line="126" selection-start-column="15" selection-end-line="126" selection-end-column="15" />
+              <folding>
+                <element signature="e#0#21#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -166,11 +179,7 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>out</find>
-      <find>clear</find>
       <find>this.filters</find>
-      <find>console</find>
-      <find>alert</find>
       <find>log</find>
       <find>pledge</find>
       <find>target</find>
@@ -188,14 +197,18 @@
       <find>align</find>
       <find>alig</find>
       <find>ali</find>
-      <find>al</find>
       <find>a</find>
       <find>te</find>
       <find>text</find>
       <find>tex</find>
       <find>t</find>
       <find>push</find>
+      <find>al</find>
+      <find>ale</find>
+      <find>aler</find>
       <find>Back</find>
+      <find>alert</find>
+      <find>console</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -252,15 +265,15 @@
         <option value="$PROJECT_DIR$/lab8/crowdfunding-app/src/CreateProject.vue" />
         <option value="$PROJECT_DIR$/lab8/crowdfunding-app/src/Home.vue" />
         <option value="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/EditUser.vue" />
-        <option value="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/main.js" />
-        <option value="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/LogIn.vue" />
         <option value="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/SignUp.vue" />
-        <option value="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/Home.vue" />
         <option value="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/Pledge.vue" />
-        <option value="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/EditProject.vue" />
+        <option value="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/Home.vue" />
+        <option value="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/main.js" />
         <option value="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/Projects.vue" />
-        <option value="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/CreateProject.vue" />
         <option value="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/singleProject.vue" />
+        <option value="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/CreateProject.vue" />
+        <option value="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/EditProject.vue" />
+        <option value="$PROJECT_DIR$/assignment_2/crowdfunding-app/src/LogIn.vue" />
       </list>
     </option>
   </component>
@@ -373,6 +386,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="lab8" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="float3-float3x2-float5" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="float3-float3x2-float5" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lab7" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -689,7 +716,7 @@
       <workItem from="1508202659264" duration="5974000" />
       <workItem from="1508221675605" duration="389000" />
       <workItem from="1508222296676" duration="23251000" />
-      <workItem from="1508279089193" duration="23987000" />
+      <workItem from="1508279089193" duration="33022000" />
     </task>
     <task id="LOCAL-00001" summary="changes to l4">
       <created>1502076662631</created>
@@ -709,7 +736,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="346702000" />
+    <option name="totallyTimeSpent" value="355737000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -941,13 +968,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lab8/chat-app/src/Users.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="7" column="16" lean-forward="true" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lab8/crowdfunding-app/src/main.js" />
     <entry file="file://$PROJECT_DIR$/lab8/crowdfunding-app/src/EditUser.vue" />
     <entry file="file://$PROJECT_DIR$/lab8/crowdfunding-app/src/LogIn.vue" />
@@ -963,102 +983,36 @@
         <state relative-caret-position="187">
           <caret line="42" column="36" lean-forward="false" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="50" />
           <folding>
-            <element signature="n#style#0;n#v-btn#0;n#v-toolbar#0;n#v-app#0;n#div#1;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#v-btn#0;n#v-flex#0;n#v-toolbar#0;n#v-app#0;n#div#1;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#v-btn#0;n#v-toolbar#0;n#v-app#0;n#div#1;n#template#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#v-btn#0;n#v-flex#0;n#v-toolbar#0;n#v-app#0;n#div#1;n#template#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/SignUp.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="150" column="209" lean-forward="false" selection-start-line="150" selection-start-column="209" selection-end-line="150" selection-end-column="209" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/LogIn.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="34" column="32" lean-forward="false" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="32" />
-          <folding />
+        <state relative-caret-position="2016">
+          <caret line="126" column="15" lean-forward="false" selection-start-line="126" selection-start-column="15" selection-end-line="126" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/Home.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="44" column="17" lean-forward="true" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
+        <state relative-caret-position="543">
+          <caret line="108" column="14" lean-forward="true" selection-start-line="100" selection-start-column="12" selection-end-line="108" selection-end-column="14" />
           <folding>
             <element signature="n#style#0;n#v-btn#0;n#v-flex#0;n#v-toolbar#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/Pledge.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1306">
-          <caret line="164" column="54" lean-forward="false" selection-start-line="164" selection-start-column="54" selection-end-line="164" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/EditProject.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3424">
-          <caret line="214" column="35" lean-forward="false" selection-start-line="214" selection-start-column="35" selection-end-line="214" selection-end-column="35" />
-          <folding>
-            <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#0;n#v-form#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#0;n#v-form#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#0;n#v-form#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/CreateProject.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-156">
-          <caret line="211" column="71" lean-forward="false" selection-start-line="211" selection-start-column="71" selection-end-line="211" selection-end-column="71" />
-          <folding>
-            <element signature="n#style#0;n#v-btn#0;n#v-toolbar#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#v-btn#0;n#v-flex#0;n#v-toolbar#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#0;n#v-card#0;n#v-flex#0;n#v-layout#1;n#v-form#0;n#v-container#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#0;n#v-card#0;n#v-flex#0;n#v-layout#1;n#v-form#0;n#v-container#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#0;n#v-card#0;n#v-flex#0;n#v-layout#1;n#v-form#0;n#v-container#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/singleProject.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="33">
-          <caret line="61" column="36" lean-forward="false" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="36" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#div#0;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h4#0;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#v-flex#0;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h4#1;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h4#0;n#ol#0;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h4#2;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h4#0;n#ol#2;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h4#3;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/Projects.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="583">
-          <caret line="168" column="46" lean-forward="true" selection-start-line="168" selection-start-column="46" selection-end-line="168" selection-end-column="46" />
+        <state relative-caret-position="144">
+          <caret line="9" column="102" lean-forward="true" selection-start-line="9" selection-start-column="102" selection-end-line="9" selection-end-column="102" />
           <folding>
             <element signature="n#style#0;n#v-btn#0;n#v-toolbar#0;n#v-layout#0;n#div#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#v-btn#0;n#v-flex#0;n#v-toolbar#0;n#v-layout#0;n#div#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
@@ -1072,6 +1026,82 @@
             <element signature="n#style#0;n#p#0;n#div#0;n#v-card-title#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-layout#0;n#div#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-layout#0;n#div#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/Pledge.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1616">
+          <caret line="101" column="39" lean-forward="false" selection-start-line="101" selection-start-column="39" selection-end-line="101" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/SignUp.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1690">
+          <caret line="138" column="49" lean-forward="true" selection-start-line="138" selection-start-column="49" selection-end-line="138" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab8/chat-app/src/Users.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2048">
+          <caret line="7" column="16" lean-forward="true" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/singleProject.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1808">
+          <caret line="61" column="60" lean-forward="false" selection-start-line="61" selection-start-column="60" selection-end-line="61" selection-end-column="60" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#div#0;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h4#0;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h4#1;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h4#0;n#ol#0;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h4#2;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h4#0;n#ol#2;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h4#3;n#v-flex#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/EditProject.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="858">
+          <caret line="146" column="27" lean-forward="false" selection-start-line="146" selection-start-column="20" selection-end-line="146" selection-end-column="27" />
+          <folding>
+            <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#0;n#v-form#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#0;n#v-form#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#0;n#v-form#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#v-form#0;n#v-card#0;n#v-flex#0;n#v-layout#1;n#v-container#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/CreateProject.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1617">
+          <caret line="256" column="79" lean-forward="false" selection-start-line="256" selection-start-column="33" selection-end-line="256" selection-end-column="79" />
+          <folding>
+            <element signature="n#style#0;n#v-btn#0;n#v-toolbar#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#v-btn#0;n#v-flex#0;n#v-toolbar#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#0;n#v-card#0;n#v-flex#0;n#v-layout#1;n#v-form#0;n#v-container#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#0;n#v-card#0;n#v-flex#0;n#v-layout#1;n#v-form#0;n#v-container#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#0;n#v-card#0;n#v-flex#0;n#v-layout#1;n#v-form#0;n#v-container#0;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignment_2/crowdfunding-app/src/LogIn.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="20" column="12" lean-forward="false" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
