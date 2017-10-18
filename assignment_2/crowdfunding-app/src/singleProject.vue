@@ -90,6 +90,8 @@
                     <li v-for="(item,index) in projectData.creators" >
                         <span>Creator Name: {{item.username}}</span><br></li>
                 </ol>
+                        <h4 style="margin-top: 20px">Creation Date</h4>
+                        <span>{{this.timeConverter()}}</span>
                         <v-alert v-if="errorFlag" color="error" icon="warning" value="true">
                             {{error}}
                         </v-alert>
@@ -182,20 +184,20 @@
                     .then(function (response) {
                         this.projectData = response.body;
                         console.log(this.projectData);
-                        let i=0;
-                        let anon_flag=false;
-                        let anon_index=-1;
-                        while (i!==this.projectData.backers.length && this.backers.length<5){
-                            if(this.projectData.backers[i].username==="anonymous"){
-                                if(!anon_flag){
+                        let i = 0;
+                        let anon_flag = false;
+                        let anon_index = -1;
+                        while (i !== this.projectData.backers.length && this.backers.length < 5) {
+                            if (this.projectData.backers[i].username === "anonymous") {
+                                if (!anon_flag) {
                                     this.backers.push(this.projectData.backers[i]);
-                                    anon_index=this.backers.length-1;
-                                    anon_flag=true;
+                                    anon_index = this.backers.length - 1;
+                                    anon_flag = true;
                                 }
-                                else{
-                                    this.backers[anon_index].amount+=this.projectData.backers[i].amount;
+                                else {
+                                    this.backers[anon_index].amount += this.projectData.backers[i].amount;
                                 }
-                            }else{
+                            } else {
                                 this.backers.push(this.projectData.backers[i]);
 
                             }
@@ -204,9 +206,9 @@
                         }
 
 
-                        this.imageUri='http://csse-s365.canterbury.ac.nz:4842/api/v2'+response.body.imageUri;
-                        this.ratio=this.projectData.progress.currentPledged/this.projectData.target*100;
-                        console.log("ratio",this.projectData.progress.currentPledged/this.projectData.target);
+                        this.imageUri = 'http://csse-s365.canterbury.ac.nz:4842/api/v2' + response.body.imageUri;
+                        this.ratio = this.projectData.progress.currentPledged / this.projectData.target * 100;
+                        console.log("ratio", this.projectData.progress.currentPledged / this.projectData.target);
                         for (let creator of this.projectData.creators) {
                             if (creator.id == localStorage.getItem('user_id')) {
                                 this.found = true;
@@ -226,20 +228,32 @@
                 this.$router.push("/projects");
             },
 
-            goEdit:function(){
+            goEdit: function () {
                 let id = this.$route.params.id;
                 id = id.toString();
-            this.$router.push('/projects/edit/'+id)
+                this.$router.push('/projects/edit/' + id)
             },
-            goPledge:function(){
-                if(localStorage.getItem('token')) {
+            goPledge: function () {
+                if (localStorage.getItem('token')) {
                     this.$router.push('/projects/pledge/' + this.$route.params.id)
-                }else{
+                } else {
                     this.error = "Not logged in!";
                     this.errorFlag = true;
                 }
-            }
+            },
+            timeConverter: function () {
+                let a = new Date(this.projectData.creationDate);
+                let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                let year = a.getFullYear();
+                let month = months[a.getMonth()];
+                let date = a.getDate();
+                let hour = a.getHours();
+                let min = a.getMinutes();
+                let sec = a.getSeconds();
+                let time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+                return time;
 
+            }
         }
 
 
