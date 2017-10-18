@@ -88,7 +88,7 @@
 
             logout: function () {
 
-                this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
+                this.$http.post('http://csse-s365.canterbury.ac.nz:4824/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
                     localStorage.clear();
                     this.logTxt = 'LOG IN';
                 }, function (error) {
@@ -109,7 +109,7 @@
             },
 
             getProjects: function () {
-                this.$http.get('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects')
+                this.$http.get('http://csse-s365.canterbury.ac.nz:4824/api/v2/projects')
                     .then(function (response) {
                         let projects = response.data;
 //                        console.log("dsafdsafsaf", response.data);
@@ -119,7 +119,7 @@
                             if (count < 4 && project.open === true && project.imageUri !== null && project.imageUri !== undefined) {
 
 
-                                let uri = 'http://csse-s365.canterbury.ac.nz:4842/api/v2' + project.imageUri;
+                                let uri = 'http://csse-s365.canterbury.ac.nz:4824/api/v2' + project.imageUri;
                                 this.items.push({"uri": uri, "title": project.title, "id": '/projects/' + project.id});
                                 count++;
                             }

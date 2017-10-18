@@ -193,7 +193,7 @@
 
             createProject: function () {
                 for (let reward of this.rewards){
-                    reward.amount= parseInt(reward.amount)
+                    reward.amount= parseInt(reward.amount)*100
                     if(reward.amount<=0){
                         this.rewards.splice(this.rewards.indexOf(reward),1);
                     }
@@ -202,14 +202,14 @@
                         "title": this.title,
                         "subtitle": this.subtitle,
                         "description": this.description,
-                        "target": parseInt(this.target),
+                        "target": parseInt(this.target)*100,
                         "creators": [this.creator],
                         "rewards": this.rewards
 //
 
                     };
 //                    console.log("projectdata", projectData);
-                    this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects',projectData,{headers:{'X-Authorization':localStorage.getItem('token')}})
+                    this.$http.post('http://csse-s365.canterbury.ac.nz:4824/api/v2/projects',projectData,{headers:{'X-Authorization':localStorage.getItem('token')}})
                         .then(function (response) {
 //                            console.log(response.data);
                             let project_id = response.data.id;
@@ -248,7 +248,7 @@
             },
             logout: function () {
 
-                this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
+                this.$http.post('http://csse-s365.canterbury.ac.nz:4824/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
                     localStorage.clear();
                     this.$router.push('/')
                 }, function (error) {
@@ -259,7 +259,7 @@
 
             },
             updateImage:function(project_id){
-                this.$http.put('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+project_id+'/image',this.image,{headers: {'X-Authorization': localStorage.getItem('token'),'Content-Type': 'image/png'}})
+                this.$http.put('http://csse-s365.canterbury.ac.nz:4824/api/v2/projects/'+project_id+'/image',this.image,{headers: {'X-Authorization': localStorage.getItem('token'),'Content-Type': 'image/png'}})
                     .then(function(response) {
                     },function (error) {
                         this.error = error.bodyText;

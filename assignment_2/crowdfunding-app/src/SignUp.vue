@@ -141,14 +141,14 @@
                     this.errorFlag=true;
                 } else {
                     this.$resource['content-type'] = 'application/json';
-                    this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users', {
+                    this.$http.post('http://csse-s365.canterbury.ac.nz:4824/api/v2/users', {
                         "username": this.username,
                         "email":this.email,
                         "password": this.password,
                         "location":this.location
 
                     }).then(function (response) {
-                        this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/login?username=' + this.username + '&email=' + this.email + "&password=" + this.password).then(function (response) {
+                        this.$http.post('http://csse-s365.canterbury.ac.nz:4824/api/v2/users/login?username=' + this.username + '&email=' + this.email + "&password=" + this.password).then(function (response) {
                             let token = response.body.token;
                             let user_id = response.body.id;
 

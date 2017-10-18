@@ -163,10 +163,13 @@
                 }
             },
             getSingleProject: function (project_id) {
-                this.$http.get('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/' + project_id.toString())
+                this.$http.get('http://csse-s365.canterbury.ac.nz:4824/api/v2/projects/' + project_id.toString())
                     .then(function (response) {
 
                         this.projectData = response.body;
+                        for (let i=0;i<this.projectData.rewards.length;i++){
+                            this.projectData.rewards[i].amount=this.projectData.rewards[i].amount/100.
+                        }
 
                     }, function (error) {
                         this.error = error.bodyText;
@@ -180,7 +183,7 @@
                 if (this.select === 'close') {
                     open = false
                 }
-                this.$http.put('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+this.$route.params.id, {"open": open}, {headers: {'X-Authorization': localStorage.getItem('token')}})
+                this.$http.put('http://csse-s365.canterbury.ac.nz:4824/api/v2/projects/'+this.$route.params.id, {"open": open}, {headers: {'X-Authorization': localStorage.getItem('token')}})
                     .then(function (response) {
                         this.$router.push("/projects/"+this.$route.params.id);
 
@@ -196,9 +199,9 @@
                         continue;
                     }
                     delete reward.id;
-                    reward.amount= parseInt(reward.amount);
+                    reward.amount= parseInt(reward.amount)*100;
                 }
-                this.$http.put('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+this.$route.params.id+'/rewards',this.projectData.rewards,{headers: {'X-Authorization': localStorage.getItem('token')}})
+                this.$http.put('http://csse-s365.canterbury.ac.nz:4824/api/v2/projects/'+this.$route.params.id+'/rewards',this.projectData.rewards,{headers: {'X-Authorization': localStorage.getItem('token')}})
                     .then(function(response){
                         this.$router.push("/projects/"+this.$route.params.id);
 
@@ -213,7 +216,7 @@
                     this.errorFlag=true;
                     return;
                 }
-                this.$http.put('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+this.$route.params.id+'/image',this.image,{headers: {'X-Authorization': localStorage.getItem('token'),'Content-Type': 'image/png','Cache-Control':'no-cache'}})
+                this.$http.put('http://csse-s365.canterbury.ac.nz:4824/api/v2/projects/'+this.$route.params.id+'/image',this.image,{headers: {'X-Authorization': localStorage.getItem('token'),'Content-Type': 'image/png','Cache-Control':'no-cache'}})
                     .then(function(response){
                         this.$router.push("/projects/"+this.$route.params.id,function(){location.reload();});
 

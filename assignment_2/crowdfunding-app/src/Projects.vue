@@ -82,7 +82,7 @@
                                         <v-card style="margin:auto;height:100%">
                                             <v-card-media style="height:200px">
                                                 <img
-                                                    v-bind:src="'http://csse-s365.canterbury.ac.nz:4842/api/v2'+project.imageUri"
+                                                    v-bind:src="'http://csse-s365.canterbury.ac.nz:4824/api/v2'+project.imageUri"
                                                    style="height:100%; width:50%;margin: auto" alt="no project image" onerror="this.onerror=null;this.src='https://www.beddingwarehouse.com.au/wp-content/uploads/2016/01/placeholder-featured-image-600x600.png';">
 
 
@@ -182,7 +182,7 @@
                     }
                 }
 
-                this.$http.get('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects?', params).then(function (response) {
+                this.$http.get('http://csse-s365.canterbury.ac.nz:4824/api/v2/projects?', params).then(function (response) {
                     if (response.body.length === 0) {
                         this.info="Nothing here!";
                         this.infoFlag=true;
@@ -230,10 +230,7 @@
                 this.updateProjects();
 
             },
-            toHome: function () {
-                this.infoFlag=false;
-                this.$router.push('/')
-            },
+
             checkLogin: function () {
                 this.infoFlag=false;
                 if (localStorage.getItem('token')) {
@@ -242,18 +239,10 @@
                     this.logTxt = 'LOG IN'
                 }
             },
-            toSignUp: function () {
-                this.infoFlag=false;
-                this.$router.push('users')
-            },
 
-            toLogIn: function () {
-                this.infoFlag=false;
-                this.$router.go('users/login')
-            },
             logout: function () {
                 this.infoFlag=false;
-                this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
+                this.$http.post('http://csse-s365.canterbury.ac.nz:4824/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
                     localStorage.clear();
                     this.logTxt = 'LOG IN';
                     this.$router.push('/');
@@ -289,7 +278,7 @@
                             open: true,
                         }
                     };
-                    this.$http.get('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects?', params).then(function (response) {
+                    this.$http.get('http://csse-s365.canterbury.ac.nz:4824/api/v2/projects?', params).then(function (response) {
                         if (response.body.length === 0) {
                             this.info="Nothing matches!";
                             this.infoFlag=true;

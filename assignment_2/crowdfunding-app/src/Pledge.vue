@@ -162,11 +162,11 @@
             pledge:function(){
                 let pledgeData = {
                     "id":parseInt(localStorage.getItem('user_id')),
-                    "amount":parseInt(this.amount),
+                    "amount":parseInt(this.amount)*100,
                     "anonymous":this.checkbox,
                     "card":{"authToken": this.authToken}
                 };
-                this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+this.$route.params.id+'/pledge',pledgeData,{headers: {'X-Authorization': localStorage.getItem('token')}})
+                this.$http.post('http://csse-s365.canterbury.ac.nz:4824/api/v2/projects/'+this.$route.params.id+'/pledge',pledgeData,{headers: {'X-Authorization': localStorage.getItem('token')}})
                     .then(function(response) {
                         this.$router.push("/projects/" + this.$route.params.id);
                     },function (error) {

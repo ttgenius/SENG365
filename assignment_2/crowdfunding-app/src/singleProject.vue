@@ -16,12 +16,6 @@
                 </v-flex>
                 <v-spacer></v-spacer>
 
-                <!--<v-btn icon>-->
-                    <!--<v-icon>search</v-icon>-->
-                <!--</v-btn>-->
-                <!--<v-btn icon>-->
-                    <!--<v-icon dark>account_circle</v-icon>-->
-                <!--</v-btn>-->
                 <v-btn  color="white" flat v-if="logTxt==='LOG IN'" router to="/users">Sign Up
                 </v-btn>
 
@@ -45,25 +39,26 @@
             <v-flex xs12 lg8 offset-sm2>
                 <v-card>
                     <v-card-text>
-
+             <v-flex xs10 offset-xs1>
                 <h2 class="black--text">{{projectData.title}}</h2>
                 <h6 class="black--text">{{projectData.subtitle}}</h6><br>
                 <div style="margin-bottom: 20px" >
                     <!---->
-                    <img style="height:auto;width:30%"
+                    <img style="height:auto;width:50%"
                             v-bind:src="imageUri"
                             alt="no project image" onerror="this.onerror=null;this.src='https://www.beddingwarehouse.com.au/wp-content/uploads/2016/01/placeholder-featured-image-600x600.png';">
 
                 </div>
                 <h4 style="margin-top: 20px">Project description</h4>
-                <span>{{projectData.description}}</span>
-
+                 <v-flex xs8 offset-xs2>
+                <p style="text-align: left">{{projectData.description}}</p>
+                 </v-flex>
                 <h4 style="margin-top: 40px">Progress</h4>
-                    <v-flex xs10 offset-xs1>
+                    <v-flex xs8 offset-xs2>
                     <v-progress-linear v-model="ratio"></v-progress-linear>
                     </v-flex>
-                    <span>Target: {{projectData.target}}</span><br>
-                <span>Current Pledged: {{projectData.progress.currentPledged}}</span><br>
+                    <span>Target: ${{projectData.target/100.0}}</span><br>
+                <span>Current Pledged: ${{projectData.progress.currentPledged/100.0}}</span><br>
                 <span>Number of Backers: {{projectData.progress.numberOfBackers}}</span><br>
                         <ol>
                             <h4 style="margin-top: 40px">Recent Pledges</h4>
@@ -72,16 +67,20 @@
                             </div>
                             <li v-for="(item,index) in backers">
                                 <span>Backer name: {{item.username}}</span><br>
-                                <span>Amount: {{item.amount}}</span><br>
+                                <span>Amount: ${{item.amount/100.0}}</span><br>
                             </li>
                         </ol>
 
                         <h4 style="margin-top: 40px">Rewards</h4>
+                        <div v-if="projectData.rewards.length===0">
+                            No Rewards currently
+                        </div>
+
                 <ol>
                     <li v-for="(item,index) in projectData.rewards">
 
                         <span>Reward ID:{{item.id}}</span><br>
-                        <span>Amount: {{item.amount}}</span><br>
+                        <span>Amount: ${{item.amount/100.0}}</span><br>
                     </li>
                 </ol>
 
@@ -90,8 +89,10 @@
                     <li v-for="(item,index) in projectData.creators" >
                         <span>Creator Name: {{item.username}}</span><br></li>
                 </ol>
-                        <h4 style="margin-top: 20px">Creation Date</h4>
+
+                        <h4 style="margin-top: 40px">Creation Date</h4>
                         <span>{{this.timeConverter()}}</span>
+
                         <v-alert v-if="errorFlag" color="error" icon="warning" value="true">
                             {{error}}
                         </v-alert>
@@ -111,6 +112,7 @@
 
                 </v-flex>
                 </v-layout>
+             </v-flex>
                     </v-card-text>
 
                 </v-card>
@@ -167,7 +169,7 @@
 
             logout: function () {
 
-                this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
+                this.$http.post('http://csse-s365.canterbury.ac.nz:4824/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
                     localStorage.clear();
                     this.logTxt = 'LOG IN';
                     this.$router.push('/');
@@ -180,7 +182,7 @@
             },
 //
             getSingleProject: function (project_id) {
-                this.$http.get('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/' + project_id.toString())
+                this.$http.get('http://csse-s365.canterbury.ac.nz:4824/api/v2/projects/' + project_id.toString())
                     .then(function (response) {
                         this.projectData = response.body;
                         console.log(this.projectData);
@@ -205,8 +207,7 @@
 
                         }
 
-
-                        this.imageUri = 'http://csse-s365.canterbury.ac.nz:4842/api/v2' + response.body.imageUri;
+                        this.imageUri = 'http://csse-s365.canterbury.ac.nz:4824/api/v2' + response.body.imageUri;
                         this.ratio = this.projectData.progress.currentPledged / this.projectData.target * 100;
                         console.log("ratio", this.projectData.progress.currentPledged / this.projectData.target);
                         for (let creator of this.projectData.creators) {
@@ -225,7 +226,7 @@
 
 
             goBack: function () {
-                this.$router.push("/projects");
+                this.$router.push('/projects');
             },
 
             goEdit: function () {

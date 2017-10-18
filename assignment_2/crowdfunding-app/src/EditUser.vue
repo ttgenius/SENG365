@@ -156,7 +156,7 @@
 
             logout: function () {
 
-                this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
+                this.$http.post('http://csse-s365.canterbury.ac.nz:4824/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
                     alert("logint out");
                     localStorage.clear();
                     this.logTxt = 'LOG IN';
@@ -170,7 +170,7 @@
             },
             getUser: function () {
                 let id = localStorage.getItem('user_id');
-                this.$http.get('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/' + id, {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
+                this.$http.get('http://csse-s365.canterbury.ac.nz:4824/api/v2/users/' + id, {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
                     this.userData = response.data;
                     console.log("user_data",this.userData)
                 }, function (error) {
@@ -183,7 +183,7 @@
                 let id = localStorage.getItem('user_id');
 
                 this.$resource['content-type'] = 'application/json';
-                this.$http.put('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/' + id, {
+                this.$http.put('http://csse-s365.canterbury.ac.nz:4824/api/v2/users/' + id, {
                     "username": this.userData.username,
                     "email": this.userData.email,
                     "password": this.userData.password,
@@ -200,7 +200,7 @@
                 let id = localStorage.getItem('user_id');
                 if (this.oldPassword === this.userData.password) {
                     this.$resource['content-type'] = 'application/json';
-                    this.$http.put('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/' + id, {
+                    this.$http.put('http://csse-s365.canterbury.ac.nz:4824/api/v2/users/' + id, {
                         "username": this.userData.username,
                         "email": this.userData.email,
                         "password": this.userData.password,
