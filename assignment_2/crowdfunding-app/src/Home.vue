@@ -1,8 +1,5 @@
 <template>
-    <div v-if="errorFlag" style="color: red;">
-        {{error}}
-    </div>
-    <div v-else>
+    <div>
         <v-app id="inspire">
 
 
@@ -11,12 +8,12 @@
 
                         <v-toolbar-side-icon></v-toolbar-side-icon>
 
-                        <v-btn color="white" style="overflow: hidden;" flat router to="/projects/create">
+                        <v-btn color="white" style="overflow: hidden;" flat @click="toCreate">
                             Create a Project
                         </v-btn>
 
 
-                        <v-btn color="white" flat hidden router to="/projects/">View All Projects</v-btn>
+                        <v-btn color="white" flat hidden router to="/projects">View All Projects</v-btn>
 
                         <v-flex xs6 offset-1>
                             <v-btn color="white" flat hidden style="font-size :20px" router to="/">Crowdfunding Home
@@ -43,6 +40,9 @@
                             {{logTxt}}
                         </v-btn>
                     </v-toolbar>
+                    <v-alert v-if="errorFlag" color="error" icon="warning" value="true">
+                        {{error}}
+                    </v-alert>
                     <v-flex xs12>
                         <v-carousel style="height:100%" v-if="loaded">
                             <v-carousel-item v-for="(item,i) in items" v-bind:src="item.uri" v-bind:key="i"
@@ -72,9 +72,6 @@
             }
         },
         mounted: function () {
-
-            alert(localStorage.getItem('token'));
-//            localStorage.clear();
             this.checkLogin();
             this.getProjects();
         },
@@ -83,7 +80,6 @@
             checkLogin: function () {
 
                 if (localStorage.getItem('token')) {
-                    alert(localStorage.getItem('token'))
                     this.logTxt = 'LOG OUT'
                 } else {
                     this.logTxt = 'LOG IN'
@@ -93,34 +89,33 @@
             logout: function () {
 
                 this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
-                    alert("logint out");
                     localStorage.clear();
                     this.logTxt = 'LOG IN';
-                    alert("successfully logged out")
                 }, function (error) {
-                    this.error = error;
+                    this.error = error.bodyText;
                     localStorage.clear();
                     this.errorFlag = true;
                 });
 
             },
-            toEditUser: function () {
-                if (localStorage.getItem('user_id')){
-                this.$router.push('/users/' + localStorage.getItem('user_id'))
-            }else{
-                    alert("not logged in!");
-                    this.$router.push('/');
+            toCreate:function(){
+                if(localStorage.getItem('token')){
+                    this.$router.push('/projects/create')
+                }else{
+                    this.error="Not logged in!";
+                    this.errorFlag = true;
                 }
+
             },
 
             getProjects: function () {
                 this.$http.get('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects')
                     .then(function (response) {
                         let projects = response.data;
-                        console.log("dsafdsafsaf", response.data);
+//                        console.log("dsafdsafsaf", response.data);
                         let count = 0;
                         for (let project of projects) {
-                            console.log("xx"+project.imageUri)
+                            console.log("xx"+project.imageUri);
                             if (count < 4 && project.open === true && project.imageUri !== null && project.imageUri !== undefined) {
 
 
@@ -130,9 +125,9 @@
                             }
                         }
                         this.loaded=true;
-                        console.log("rui", this.items)
+//                        console.log("rui", this.items)
                     }, function (error) {
-                        this.error = error;
+                        this.error = error.bodyText;
                         this.errorFlag = true;
                     });
             },

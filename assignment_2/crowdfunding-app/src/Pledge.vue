@@ -1,15 +1,14 @@
 <template>
-    <div v-if="errorFlag" style="color: red;">
-        {{error.bodyText}}
-    </div>
-    <div v-else>
-        <!--<div id="app">-->
+    <div>
         <v-app id="inspire">
             <v-container>
                 <v-layout row>
                     <v-flex xs12 sm6 offset-sm3>
                         <v-card>
                             <v-card-text>
+                                <v-alert v-if="errorFlag" color="error" icon="warning" value="true">
+                                    {{error}}
+                                </v-alert>
                                 <v-container>
 
 
@@ -153,14 +152,14 @@
             },
             checklogin: function () {
                 if (! localStorage.getItem('token')) {
-                    alert("not logged in!");
-                    this.$router.push('/');
+                    this.error = "not logged in!";
+                    this.errorFlag=true;
+//                    this.$router.push('/');
 
                 }
             },
 
             pledge:function(){
-//                alert("anonymous: "+this.checkbox);
                 let pledgeData = {
                     "id":parseInt(localStorage.getItem('user_id')),
                     "amount":parseInt(this.amount),
@@ -169,10 +168,9 @@
                 };
                 this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+this.$route.params.id+'/pledge',pledgeData,{headers: {'X-Authorization': localStorage.getItem('token')}})
                     .then(function(response) {
-                        alert("pledged");
                         this.$router.push("/projects/" + this.$route.params.id);
                     },function (error) {
-                        this.error = error;
+                        this.error = error.bodyText;
                         this.errorFlag = true;
                     });
 

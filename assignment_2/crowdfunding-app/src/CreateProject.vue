@@ -1,11 +1,7 @@
 <template>
-    <div v-if="errorFlag" style="color: red;">
-        {{error.bodyText}}
-    </div>
-    <div v-else>
+    <div>
             <v-app id="inspire">
                 <v-toolbar color="indigo" dark>
-
                     <v-toolbar-side-icon></v-toolbar-side-icon>
 
                     <v-btn color="white" style="overflow: hidden;" flat router to="/projects/create">
@@ -38,6 +34,9 @@
                         <v-flex xs10 offset-sm1>
                             <v-card>
                                 <v-card-text>
+                                    <v-alert v-if="errorFlag" color="error" icon="warning" value="true">
+                                        {{error}}
+                                    </v-alert>
                                     <v-container>
                 <v-form v-on:submit.prevent="createProject">
                     <v-layout row wrap>
@@ -193,9 +192,6 @@
         methods: {
 
             createProject: function () {
-                alert(localStorage.getItem('user_id'));
-//                this.$validator.validateAll().then(function (res) {
-//                    alert(this.$store.state.user_id);
                 for (let reward of this.rewards){
                     reward.amount= parseInt(reward.amount)
                     if(reward.amount<=0){
@@ -212,19 +208,17 @@
 //
 
                     };
-                    console.log("projectdata", projectData);
+//                    console.log("projectdata", projectData);
                     this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects',projectData,{headers:{'X-Authorization':localStorage.getItem('token')}})
                         .then(function (response) {
-                            console.log(response.data);
+//                            console.log(response.data);
                             let project_id = response.data.id;
-                            alert(project_id);
-                            console.log("safdsfsfd",this.image);
                             if(this.image){
                                 this.updateImage(project_id)
                             }
                             this.$router.push('/')
                         }, function (error) {
-                            this.error = error;
+                            this.error = error.bodyText;
                             this.errorFlag = true;
                         });
 
@@ -238,7 +232,6 @@
                 }
             },
             removeReward: function (index) {
-//                alert(index);
                 this.rewards.splice(index, 1);
             },
 
@@ -248,18 +241,18 @@
             },
             checklogin: function () {
                 if (! localStorage.getItem('token')) {
-                    alert("not logged in!");
+                   this.error="not logged in!";
+                   this.errorFlag=true;
                     this.$router.push('/');
                 }
             },
             logout: function () {
 
                 this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
-                    alert("logint out");
                     localStorage.clear();
-                    alert("successfully logged out")
+                    this.$router.push('/')
                 }, function (error) {
-                    this.error = error;
+                    this.error = error.bodyText;
                     localStorage.clear();
                     this.errorFlag = true;
                 });
@@ -268,9 +261,8 @@
             updateImage:function(project_id){
                 this.$http.put('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+project_id+'/image',this.image,{headers: {'X-Authorization': localStorage.getItem('token'),'Content-Type': 'image/png'}})
                     .then(function(response) {
-                        alert("updateding image");
                     },function (error) {
-                        this.error = error;
+                        this.error = error.bodyText;
                         this.errorFlag = true;
                     });
 
@@ -282,7 +274,8 @@
                 const files=event.target.files;
                 let filename=files[0].name;
                 if(filename.lastIndexOf('.')<=0){
-                    return alert('please add a valid file')
+                   this.error='please add a valid file';
+                   this.errorFlag=true;
                 }
                 const fileReader = new FileReader();
                 fileReader.addEventListener('load',()=>{

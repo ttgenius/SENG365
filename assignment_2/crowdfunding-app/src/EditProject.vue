@@ -1,32 +1,15 @@
 <template>
-    <div v-if="errorFlag" style="color: red;">
-        {{error.bodyText}}
-    </div>
-    <div v-else>
+    <div>
 
         <v-app id="inspire">
             <v-container fluid grid-list-xl>
+                <v-alert v-if="errorFlag" color="error" icon="warning" value="true">
+                    {{error}}
+                </v-alert>
                  <v-btn @click="goBack">Back to Single Project</v-btn>
+
                 <v-layout row wrap>
-                    <v-flex xs12 sm12 md16 class="my-3">
-                        <v-card>
-            <v-form class="red lighten-3" v-if="projectData.open" v-on:submit.prevent="updateProject" >
-                <v-select
-                label="Select open/close to open/close the project.You will not be able to reopen the project once close the project"
-                v-model="select"
-                :items="items"
-                :error-messages="errors.collect('select')"
-                v-validate="'required'"
-                data-vv-name="select"
-                required
-                ></v-select>
-                <v-btn color="red" dark type="submit">open/close the project</v-btn>
-            </v-form>
-                        </v-card>
-                    </v-flex>
-                </v-layout>
-                <v-layout row wrap>
-                    <v-flex xs12 sm12 md16 class="my-3">
+                    <v-flex xs8 offset-xs2 class="my-3">
                         <v-card>
             <v-form v-on:submit.prevent="updateRewards">
 
@@ -76,7 +59,7 @@
                     </v-flex>
                 </v-layout>
                     <v-layout row wrap>
-                        <v-flex xs12 sm12 md16 class="my-3">
+                        <v-flex xs8 offset-xs2 class="my-3">
                             <v-card>
                                 <v-form  v-on:submit.prevent="updateImage" >
 
@@ -88,7 +71,7 @@
                                            @change="onFilePicked">
 
                                 <v-layout row>
-                                <v-flex xs12 sm12 md16 class="my-3">
+                                    <v-flex xs8 offset-xs2 class="my-3">
                                 <img :src="imageUrl" height="150">
                                 </v-flex>
                                 </v-layout>
@@ -97,10 +80,27 @@
                             </v-card>
                         </v-flex>
                     </v-layout>
+                <v-layout row wrap>
+                    <v-flex xs8 offset-xs2 class="my-3">
+                        <v-card>
+                            <v-form class="red lighten-3" v-if="projectData.open" v-on:submit.prevent="updateProject" >
+                                <v-select
+                                        label="Select open/close to open/close the project.You will not be able to reopen the project once close the project"
+                                        v-model="select"
+                                        :items="items"
+                                        :error-messages="errors.collect('select')"
+                                        v-validate="'required'"
+                                        data-vv-name="select"
+                                        required
+                                ></v-select>
+                                <v-btn color="red" dark type="submit">open/close the project</v-btn>
+                            </v-form>
+                        </v-card>
+                    </v-flex>
+                </v-layout>
             </v-container>
         </v-app>
         </div>
-
 </template>
 
 
@@ -147,7 +147,6 @@
                 }
             },
             removeReward: function (index) {
-//                alert(index);
                 this.projectData.rewards.splice(index, 1);
             },
 
@@ -157,7 +156,8 @@
             },
             checklogin: function () {
                 if (! localStorage.getItem('token')) {
-                    alert("not logged in!");
+                    this.error="not logged in!";
+                    this.errorFlag=true;
                     this.$router.push('/');
 
                 }
@@ -169,26 +169,24 @@
                         this.projectData = response.body;
 
                     }, function (error) {
-                        this.error = error;
+                        this.error = error.bodyText;
                         this.errorFlag = true;
                     });
 
 
             },
             updateProject: function () {
-//                alert("updating")
                 let open = true;
                 if (this.select === 'close') {
                     open = false
                 }
                 this.$http.put('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+this.$route.params.id, {"open": open}, {headers: {'X-Authorization': localStorage.getItem('token')}})
                     .then(function (response) {
-                        alert("updated");
                         this.$router.push("/projects/"+this.$route.params.id);
 
                     },function (error) {
-                        this.error = error;
-                        this.errorFlag = true
+                        this.error = error.bodyText;
+                        this.errorFlag = true;
                     });
             },
             updateRewards:function(){
@@ -200,30 +198,28 @@
                     delete reward.id;
                     reward.amount= parseInt(reward.amount);
                 }
-//                alert("calling updating rewards");
                 this.$http.put('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+this.$route.params.id+'/rewards',this.projectData.rewards,{headers: {'X-Authorization': localStorage.getItem('token')}})
                     .then(function(response){
-                        alert("updated rewards");
                         this.$router.push("/projects/"+this.$route.params.id);
 
                     },function (error) {
-                        this.error = error;
-                        this.errorFlag = true
+                        this.error = "Please fill in the reward amount field";
+                        this.errorFlag = true;
                     });
             },
             updateImage:function(){
                 if(!this.image){
-                    alert("please select an image before uploading");
+                    this.error="please select an image before uploading";
+                    this.errorFlag=true;
                     return;
                 }
-                this.$http.put('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+this.$route.params.id+'/image',this.image,{headers: {'X-Authorization': localStorage.getItem('token'),'Content-Type': 'image/png'}})
+                this.$http.put('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects/'+this.$route.params.id+'/image',this.image,{headers: {'X-Authorization': localStorage.getItem('token'),'Content-Type': 'image/png','Cache-Control':'no-cache'}})
                     .then(function(response){
-                        alert("updateding image");
                         this.$router.push("/projects/"+this.$route.params.id,function(){location.reload();});
 
                     },function (error) {
-                        this.error = error;
-                        this.errorFlag = true
+                        this.error = error.bodyText;
+                        this.errorFlag = true;
                     });
 
             },
@@ -235,7 +231,8 @@
 
                 let filename=files[0].name;
                 if(filename.lastIndexOf('.')<=0){
-                    return alert('please add a valid file')
+                    this.error='please add a valid file';
+                    this.errorFlag = true;
                 }
                 const fileReader = new FileReader();
                 fileReader.addEventListener('load',()=>{

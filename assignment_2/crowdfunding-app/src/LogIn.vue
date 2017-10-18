@@ -1,10 +1,9 @@
 <template>
  <v-app id="inspire">
     <div>
-        <div v-if="errorFlag" style="color: red;">
-            {{error.bodyText}}
-        </div>
+
         <v-toolbar color="indigo" dark>
+
 
             <v-toolbar-side-icon></v-toolbar-side-icon>
 
@@ -33,6 +32,9 @@
             <v-flex xs12 sm6 offset-sm3>
                 <v-card>
                     <v-card-text>
+                        <v-alert v-if="errorFlag" color="error" icon="warning" value="true">
+                            {{error}}
+                        </v-alert>
                         <v-container>
                             <form v-on:submit.prevent="LogIn">
                                 <v-layout row>
@@ -64,6 +66,7 @@
                                         <v-btn type="submit">Log in</v-btn>
                                     </v-flex>
                                 </v-layout>
+
                             </form>
                         </v-container>
                     </v-card-text>
@@ -121,13 +124,11 @@
                         console.log(token);
                         localStorage.setItem('token', token);
                         localStorage.setItem('user_id', user_id);
-//                        alert(localStorage.getItem('token', token));
                         this.$router.push('/')
                     }, function (error) {
-                        this.error = error;
+                        this.error = error.bodyText;
                         this.errorFlag = true;
-                        alert(error.response.data);
-                        console.log(error)
+
                     });
                 }
 

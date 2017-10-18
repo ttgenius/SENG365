@@ -1,10 +1,7 @@
 <template>
 <v-app id="inspire">
-    <div v-if="errorFlag" style="color: red;">
-        {{error}}
-    </div>
 
-    <div v-else>
+    <div>
                     <v-layout column>
 
                             <v-toolbar color="indigo" dark>
@@ -34,7 +31,7 @@
                                                     type="search"
                                             ></v-text-field>
 
-                                        <v-btn @click="searchProject" icon>
+                                        <v-btn @click="searchProjectAndClear" icon>
                                             <v-icon>search</v-icon>
                                         </v-btn>
                                     </v-layout>
@@ -69,6 +66,12 @@
                             </v-toolbar>
 
                             <v-container fluid grid-list-md class="grey lighten-4">
+                                <v-alert v-if="errorFlag" color="error" icon="warning" value="true">
+                                    {{error}}
+                                </v-alert>
+                                <v-alert v-if="infoFlag" color="info" icon="info" value="true">
+                                    {{info}}
+                                </v-alert>
                                 <v-layout row wrap>
                                     <v-flex xs4 style="padding-left:15px;padding-right:15px;padding-top:15px;ingmargin:auto;height:100%"
 
@@ -100,10 +103,8 @@
                                     </v-flex>
 
                                     <v-flex xs12 sm6 offset-sm3>
-                                        <div v-if="!searched">
                                         <v-btn class="primary" dark v-if="startIndex>0" @click="previous">previous</v-btn>
                                         <v-btn class="primary" dark v-if="projects.length!=0" @click="next">next</v-btn>
-                                    </div>
                                         </v-flex>
 
 
@@ -138,7 +139,9 @@
                 item:null,
                 logTxt:"",
                 search:"",
-                searched:false
+                searched:false,
+                info:"",
+                infoFlag:false
             }
         },
 
@@ -150,6 +153,7 @@
         methods: {
 
             updateProjects: function () {
+                this.infoFlag=false;
                 this.searched = false;
                 let params = {
                     params: {
@@ -180,76 +184,88 @@
 
                 this.$http.get('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects?', params).then(function (response) {
                     if (response.body.length === 0) {
-                        alert("Nothing here");
+                        this.info="Nothing here!";
+                        this.infoFlag=true;
                         this.projects = []
 
                     }
                     else {
                         this.projects = response.body;
-                        console.log(this.projects);
+//                        console.log(this.projects);
                     }
 
                 }, function (error) {
-                    this.error = error;
+                    this.error = error.bodyText;
                     this.errorFlag = true;
                 });
             },
 
             next: function () {
+                this.infoFlag=false;
                 this.startIndex += this.count;
+                if(this.searched){
+                    this.searchProject();
+                }else{
                 this.updateProjects()
+                }
             },
             previous: function () {
-
+                this.infoFlag=false;
                 this.startIndex -= this.count;
-                this.updateProjects()
+                if(this.searched){
+                    this.searchProject();
+                }else{
+                    this.updateProjects()
+                }
             },
             goto: function (id) {
+                this.infoFlag=false;
                 this.$router.push('/projects/' + id);
             },
 
             filter: function (item) {
+                this.infoFlag=false;
                 this.filters = item;
                 this.startIndex = 0;
                 this.updateProjects();
 
             },
             toHome: function () {
+                this.infoFlag=false;
                 this.$router.push('/')
             },
             checkLogin: function () {
-
+                this.infoFlag=false;
                 if (localStorage.getItem('token')) {
-//                    alert(localStorage.getItem('token'))
                     this.logTxt = 'LOG OUT'
                 } else {
                     this.logTxt = 'LOG IN'
                 }
             },
             toSignUp: function () {
+                this.infoFlag=false;
                 this.$router.push('users')
             },
 
             toLogIn: function () {
+                this.infoFlag=false;
                 this.$router.go('users/login')
             },
             logout: function () {
-
+                this.infoFlag=false;
                 this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
-//                    alert("logint out");
                     localStorage.clear();
                     this.logTxt = 'LOG IN';
-                    alert("successfully logged out")
-                    this.$router.push('/')
+                    this.$router.push('/');
                 }, function (error) {
-                    this.error = error;
+                    this.error = error.bodyText;
                     localStorage.clear();
                     this.errorFlag = true;
                 });
 
             },
             toProjects:function(){
-
+                this.infoFlag=false;
                     this.searched = false;
                     this.startIndex = 0;
                     this.filters='Clear Filter';
@@ -258,7 +274,13 @@
 
 
             },
+            searchProjectAndClear:function(){
+                this.infoFlag=false;
+                this.startIndex=0;
+                this.searchProject();
+            },
             searchProject: function () {
+                this.infoFlag=false;
                 if (this.search !=='') {
                     this.searched = true;
                     let params = {
@@ -269,40 +291,42 @@
                     };
                     this.$http.get('http://csse-s365.canterbury.ac.nz:4842/api/v2/projects?', params).then(function (response) {
                         if (response.body.length === 0) {
-                            alert("Nothing here");
+                            this.info="Nothing matches!";
+                            this.infoFlag=true;
                             this.projects = []
 
                         }
                         else {
 
-                            let matchedProject = []
+                            let matchedProject = [];
                             this.projects = response.body;
-                            console.log("searching", this.search.toLowerCase());
+//                            console.log("searching", this.search.toLowerCase());
 
 
                             for (let project of this.projects) {
-                                console.log("title", project.title.toLowerCase())
-                                console.log("includes?", project.title.toLowerCase().includes(this.search.toLowerCase()) || project.subtitle.toString().includes(this.search.toLowerCase()))
+//                                console.log("title", project.title.toLowerCase());
+//                                console.log("includes?", project.title.toLowerCase().includes(this.search.toLowerCase()) || project.subtitle.toString().includes(this.search.toLowerCase()));
                                 if ((project.title.toLowerCase().includes(this.search.toLowerCase())) || (project.subtitle.toString().includes(this.search.toLowerCase()))) {
-                                    matchedProject.push(project)
-                                    console.log("title", project.title)
+                                    matchedProject.push(project);
+//                                    console.log("title", project.title)
 
-                                } else {
-                                    console.log("dafas")
                                 }
+
                             }
                             if (matchedProject.length === 0) {
-                                return alert("nothing matches!");
+                                this.projects=[];
+                                this.info="nothing matches!";
+                                this.infoFlag=true;
 
                             } else {
-                                console.log("found projects", this.projects)
-                                this.projects = matchedProject
+                                console.log("found projects", this.projects);
+                                this.projects = matchedProject.slice(this.startIndex,this.startIndex+this.count);
                             }
 
                         }
 
                     }, function (error) {
-                        this.error = error;
+                        this.error = error.bodyText;
                         this.errorFlag = true;
                     });
                 }else{

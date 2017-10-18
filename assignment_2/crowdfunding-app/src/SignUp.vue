@@ -4,24 +4,15 @@
 
             <v-toolbar-side-icon></v-toolbar-side-icon>
 
-            <v-btn color="white" style="overflow: hidden;" flat router to="/projects/create">Create a Project</v-btn>
-
 
             <v-btn color="white" flat hidden router to="/projects/">View All Projects</v-btn>
 
-            <v-flex xs6 offset-1>
+            <v-flex xs7 offset-xs1>
                 <v-btn color="white"  flat hidden style="font-size :20px"router to="/">Crowdfunding Home
                 </v-btn>
             </v-flex>
 
             <v-spacer></v-spacer>
-
-            <v-btn icon>
-                <v-icon>search</v-icon>
-            </v-btn>
-            <v-btn icon>
-                <v-icon dark>account_circle</v-icon>
-            </v-btn>
 
         </v-toolbar>
     <v-container>
@@ -29,6 +20,9 @@
             <v-flex xs12 sm6 offset-sm3>
                 <v-card>
                     <v-card-text>
+                        <v-alert v-if="errorFlag" color="error" icon="warning" value="true">
+                            {{error}}
+                        </v-alert>
                         <v-container>
                             <v-form v-on:submit.prevent="SignUp">
                                 <v-layout row>
@@ -140,10 +134,11 @@
             },
             SignUp: function () {
                 if (this.username == "") {
-
-                    alert("Please enter an username!");
+                    this.error="Please enter an username!";
+                    this.errorFlag=true;
                 } else if (this.password == "") {
-                    alert("Please enter a password!")
+                    this.error="Please enter a password!"
+                    this.errorFlag=true;
                 } else {
                     this.$resource['content-type'] = 'application/json';
                     this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users', {
@@ -154,33 +149,24 @@
 
                     }).then(function (response) {
                         this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/login?username=' + this.username + '&email=' + this.email + "&password=" + this.password).then(function (response) {
-
-                            console.log(response.body);
                             let token = response.body.token;
                             let user_id = response.body.id;
-                            console.log(token);
-//
+
                             localStorage.setItem('token',token);
                             localStorage.setItem('user_id',user_id);
-//                            alert(islogIn);
-//                            alert(localStorage.getItem('token',token));
 //
                             this.$router.push('/')
 //
                         }, function (error) {
-                            this.error = error;
+                            this.error = error.bodyText;
                             this.errorFlag = true;
-//
-                            alert("failed to log in");
-                            console.log(error)
+
                         });
 
 
                     },function (error) {
-                        this.error = error;
+                        this.error = "username or email already exist!";
                         this.errorFlag = true;
-                        return alert("username or email already exist!");
-                        console.log(error)
                     });
 
 

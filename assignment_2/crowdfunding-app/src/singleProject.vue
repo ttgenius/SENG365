@@ -1,10 +1,5 @@
 <template>
-    <div v-if="errorFlag" style="color: red;">
-        {{error}}
-    </div>
-    
-    <div v-else>
-
+    <div>
         <v-app id="inspire">
             <v-toolbar color="indigo" dark>
                 <v-toolbar-side-icon></v-toolbar-side-icon>
@@ -44,6 +39,7 @@
 
                 </div>
             </v-toolbar>
+
         <v-layout>
 
             <v-flex xs12 lg8 offset-sm2>
@@ -54,7 +50,7 @@
                 <h6 class="black--text">{{projectData.subtitle}}</h6><br>
                 <div style="margin-bottom: 20px" >
                     <!---->
-                    <img style="height:auto;width:40%"
+                    <img style="height:auto;width:30%"
                             v-bind:src="imageUri"
                             alt="no project image" onerror="this.onerror=null;this.src='https://www.beddingwarehouse.com.au/wp-content/uploads/2016/01/placeholder-featured-image-600x600.png';">
 
@@ -71,6 +67,9 @@
                 <span>Number of Backers: {{projectData.progress.numberOfBackers}}</span><br>
                         <ol>
                             <h4 style="margin-top: 40px">Recent Pledges</h4>
+                            <div v-if="backers.length===0">
+                                No current pledges
+                            </div>
                             <li v-for="(item,index) in backers">
                                 <span>Backer name: {{item.username}}</span><br>
                                 <span>Amount: {{item.amount}}</span><br>
@@ -91,9 +90,11 @@
                     <li v-for="(item,index) in projectData.creators" >
                         <span>Creator Name: {{item.username}}</span><br></li>
                 </ol>
+                        <v-alert v-if="errorFlag" color="error" icon="warning" value="true">
+                            {{error}}
+                        </v-alert>
 
-
-                <v-layout row >  <!--<v-card-actions>-->
+                <v-layout row >
                 <v-flex xs6>
 
                         <v-btn color="orange" dark @click="goBack" >Back to Projects</v-btn>
@@ -108,9 +109,9 @@
 
                 </v-flex>
                 </v-layout>
-                <!--</v-card-actions>-->
                     </v-card-text>
-                </v-card> <!--</v-card>-->
+
+                </v-card>
 
             </v-flex>
 
@@ -156,7 +157,6 @@
             checkLogin: function () {
 
                 if (localStorage.getItem('token')) {
-//                    alert(localStorage.getItem('token'))
                     this.logTxt = 'LOG OUT'
                 } else {
                     this.logTxt = 'LOG IN'
@@ -166,12 +166,11 @@
             logout: function () {
 
                 this.$http.post('http://csse-s365.canterbury.ac.nz:4842/api/v2/users/logout', "", {headers: {'X-Authorization': localStorage.getItem('token')}}).then(function (response) {
-//                    alert("logint out");
                     localStorage.clear();
                     this.logTxt = 'LOG IN';
-                    alert("successfully logged out")
+                    this.$router.push('/');
                 }, function (error) {
-                    this.error = error;
+                    this.error = error.bodyText;
                     localStorage.clear();
                     this.errorFlag = true;
                 });
@@ -210,15 +209,12 @@
                         console.log("ratio",this.projectData.progress.currentPledged/this.projectData.target);
                         for (let creator of this.projectData.creators) {
                             if (creator.id == localStorage.getItem('user_id')) {
-//                                alert("is creator");
                                 this.found = true;
                                 break;
-                            } else {
-//                                alert("not a creator")
                             }
                         }
                     }, function (error) {
-                        this.error = error;
+                        this.error = error.bodyText;
                         this.errorFlag = true;
                     });
 
@@ -236,7 +232,12 @@
             this.$router.push('/projects/edit/'+id)
             },
             goPledge:function(){
-                this.$router.push('/projects/pledge/'+this.$route.params.id)
+                if(localStorage.getItem('token')) {
+                    this.$router.push('/projects/pledge/' + this.$route.params.id)
+                }else{
+                    this.error = "Not logged in!";
+                    this.errorFlag = true;
+                }
             }
 
         }
