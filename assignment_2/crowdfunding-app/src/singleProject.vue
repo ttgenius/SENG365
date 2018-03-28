@@ -6,125 +6,111 @@
                 <v-btn color="white" style="overflow: hidden;" flat @click="toCreate">
                     Create a Project
                 </v-btn>
-
-
                 <v-btn color="white" flat hidden router to="/projects/">View All Projects</v-btn>
-
                 <v-flex xs6 offset-1>
                     <v-btn color="white" flat hidden style="font-size :20px" router to="/">Crowdfunding Home
                     </v-btn>
                 </v-flex>
+
                 <v-spacer></v-spacer>
 
-                <v-btn  color="white" flat v-if="logTxt==='LOG IN'" router to="/users">Sign Up
+                <v-btn color="white" flat v-if="logTxt==='LOG IN'" router to="/users">Sign Up
                 </v-btn>
 
                 <v-btn color="white" flat v-if="logTxt==='LOG IN'" router to="/users/login">
-
                     {{logTxt}}
-
                 </v-btn>
                 <v-btn color="white" flat v-else v-on:click="logout">
                     {{logTxt}}
                 </v-btn>
                 <div v-else class="text-xs-center">
-
                     <v-btn color="white" dark slot="activator" disabled>Filter</v-btn>
-
                 </div>
             </v-toolbar>
             <v-alert v-if="errorFlag" color="error" icon="warning" value="true">
                 {{error}}
             </v-alert>
-        <v-layout>
+            <v-layout>
+                <v-flex xs12 lg8 offset-sm2>
+                    <v-card>
+                        <v-card-text>
+                            <v-flex xs10 offset-xs1>
+                                <h2 class="black--text">{{projectData.title}}</h2>
+                                <h6 class="black--text">{{projectData.subtitle}}</h6><br>
+                                <div style="margin-bottom: 20px">
+                                    <!---->
+                                    <img style="height:auto;width:50%"
+                                         v-bind:src="imageUri"
+                                         alt="no project image"
+                                         onerror="this.onerror=null;this.src='https://www.beddingwarehouse.com.au/wp-content/uploads/2016/01/placeholder-featured-image-600x600.png';">
+                                </div>
+                                <h4 style="margin-top: 20px">Project description</h4>
+                                <v-flex xs8 offset-xs2>
+                                    <p>{{projectData.description}}</p>
+                                </v-flex>
+                                <h4 style="margin-top: 40px">Progress</h4>
+                                <v-flex xs8 offset-xs2>
+                                    <v-progress-linear v-model="ratio"></v-progress-linear>
+                                </v-flex>
+                                <span>Target: ${{projectData.target / 100.}}</span><br>
+                                <span>Current Pledged: ${{projectData.progress.currentPledged / 100.0}}</span><br>
+                                <span>Number of Backers: {{projectData.progress.numberOfBackers}}</span><br>
+                                <ol>
+                                    <h4 style="margin-top: 40px">Recent Pledges</h4>
+                                    <div v-if="backers.length===0">
+                                        No current pledges
+                                    </div>
+                                    <li v-for="(item,index) in backers">
+                                        <span>Backer name: {{item.username}}</span><br>
+                                        <span>Amount: ${{item.amount / 100.0}}</span><br>
+                                    </li>
+                                </ol>
 
-            <v-flex xs12 lg8 offset-sm2>
-                <v-card>
-                    <v-card-text>
-             <v-flex xs10 offset-xs1>
-                <h2 class="black--text">{{projectData.title}}</h2>
-                <h6 class="black--text">{{projectData.subtitle}}</h6><br>
-                <div style="margin-bottom: 20px" >
-                    <!---->
-                    <img style="height:auto;width:50%"
-                            v-bind:src="imageUri"
-                            alt="no project image" onerror="this.onerror=null;this.src='https://www.beddingwarehouse.com.au/wp-content/uploads/2016/01/placeholder-featured-image-600x600.png';">
+                                <h4 style="margin-top: 40px">Rewards</h4>
+                                <div v-if="projectData.rewards.length===0">
+                                    No Rewards currently
+                                </div>
 
-                </div>
-                <h4 style="margin-top: 20px">Project description</h4>
-                 <v-flex xs8 offset-xs2>
-                <p>{{projectData.description}}</p>
-                 </v-flex>
-                <h4 style="margin-top: 40px">Progress</h4>
-                    <v-flex xs8 offset-xs2>
-                    <v-progress-linear v-model="ratio"></v-progress-linear>
-                    </v-flex>
-                    <span>Target: ${{projectData.target/100.}}</span><br>
-                <span>Current Pledged: ${{projectData.progress.currentPledged/100.0}}</span><br>
-                <span>Number of Backers: {{projectData.progress.numberOfBackers}}</span><br>
-                        <ol>
-                            <h4 style="margin-top: 40px">Recent Pledges</h4>
-                            <div v-if="backers.length===0">
-                                No current pledges
-                            </div>
-                            <li v-for="(item,index) in backers">
-                                <span>Backer name: {{item.username}}</span><br>
-                                <span>Amount: ${{item.amount/100.0}}</span><br>
-                            </li>
-                        </ol>
+                                <ol>
+                                    <li v-for="(item,index) in projectData.rewards">
+                                        <span>Reward ID:{{item.id}}</span><br>
+                                        <span>Amount: ${{item.amount / 100.0}}</span><br>
+                                    </li>
+                                </ol>
 
-                        <h4 style="margin-top: 40px">Rewards</h4>
-                        <div v-if="projectData.rewards.length===0">
-                            No Rewards currently
-                        </div>
+                                <ol>
+                                    <h4 style="margin-top: 40px">Creators</h4>
+                                    <li v-for="(item,index) in projectData.creators">
+                                        <span>Creator Name: {{item.username}}</span><br></li>
+                                </ol>
 
-                <ol>
-                    <li v-for="(item,index) in projectData.rewards">
+                                <h4 style="margin-top: 40px">Creation Date</h4>
+                                <span>{{this.timeConverter()}}</span>
 
-                        <span>Reward ID:{{item.id}}</span><br>
-                        <span>Amount: ${{item.amount/100.0}}</span><br>
-                    </li>
-                </ol>
+                                <v-alert v-if="errorFlag" color="error" icon="warning" value="true">
+                                    {{error}}
+                                </v-alert>
 
-                <ol>
-                    <h4 style="margin-top: 40px">Creators</h4>
-                    <li v-for="(item,index) in projectData.creators" >
-                        <span>Creator Name: {{item.username}}</span><br></li>
-                </ol>
-
-                        <h4 style="margin-top: 40px">Creation Date</h4>
-                        <span>{{this.timeConverter()}}</span>
-
-                        <v-alert v-if="errorFlag" color="error" icon="warning" value="true">
-                            {{error}}
-                        </v-alert>
-
-                <v-layout row >
-                <v-flex xs6>
-
-                        <v-btn color="orange" dark @click="goBack" >Back to Projects</v-btn>
+                                <v-layout row>
+                                    <v-flex xs6>
+                                        <v-btn color="orange" dark @click="goBack">Back to Projects</v-btn>
+                                    </v-flex>
+                                    <v-flex xs6 offset-xs6 v-if="projectData.open===true">
+                                        <div v-if="found===true">
+                                            <v-btn color="orange" dark @click="goEdit">Edit Project</v-btn>
+                                        </div>
+                                        <div v-else>
+                                            <v-btn color="orange" dark @click="goPledge">Pledge this project</v-btn>
+                                        </div>
+                                    </v-flex>
+                                </v-layout>
+                            </v-flex>
+                        </v-card-text>
+                    </v-card>
                 </v-flex>
-                <v-flex xs6 offset-xs6 v-if="projectData.open===true">
-                    <div v-if="found===true">
-                        <v-btn color="orange" dark @click="goEdit">Edit Project</v-btn>
-                    </div>
-                <div v-else>
-                    <v-btn color="orange" dark @click="goPledge">Pledge this project</v-btn>
-                </div>
-
-                </v-flex>
-                </v-layout>
-             </v-flex>
-                    </v-card-text>
-
-                </v-card>
-
-            </v-flex>
-
-        </v-layout>
+            </v-layout>
         </v-app>
     </div>
-
 </template>
 
 
@@ -182,12 +168,10 @@
                 });
 
             },
-//
             getSingleProject: function (project_id) {
                 this.$http.get('http://csse-s365.canterbury.ac.nz:4824/api/v2/projects/' + project_id.toString())
                     .then(function (response) {
                         this.projectData = response.body;
-//                        console.log(this.projectData);
                         let i = 0;
                         let anon_flag = false;
                         let anon_index = -1;
@@ -266,10 +250,6 @@
 
             }
         }
-
-
-        
-        
     }
 </script>
 

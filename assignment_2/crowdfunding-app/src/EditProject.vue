@@ -1,90 +1,89 @@
 <template>
     <div>
-
         <v-app id="inspire">
             <v-container fluid grid-list-xl>
                 <v-alert v-if="errorFlag" color="error" icon="warning" value="true">
                     {{error}}
                 </v-alert>
-                 <v-btn @click="goBack">Back to Single Project</v-btn>
+                <v-btn @click="goBack">Back to Single Project</v-btn>
 
                 <v-layout row wrap>
                     <v-flex xs8 offset-xs2 class="my-3">
                         <v-card>
-            <v-form v-on:submit.prevent="updateRewards">
+                            <v-form v-on:submit.prevent="updateRewards">
 
-                <div class="panel-body">
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th style="width: 40px;font-size: 15px">Reward No.</th>
-                            <th style="width: 80px;font-size: 15px">Amount</th>
-                            <th style="font-size: 15px">Description</th>
-                            <v-btn @click="addReward()">add reward</v-btn>
-                        </tr>
+                                <div class="panel-body">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 40px;font-size: 15px">Reward No.</th>
+                                            <th style="width: 80px;font-size: 15px">Amount</th>
+                                            <th style="font-size: 15px">Description</th>
+                                            <v-btn @click="addReward()">add reward</v-btn>
+                                        </tr>
 
-                        </thead>
+                                        </thead>
 
-                        <tbody>
-                        <tr v-for="(reward, index) in projectData.rewards" :key="index" :row="reward">
-                            <td>
-                                {{ index }}
-                            </td>
-                            <td>
-                                <v-text-field
-                                        v-model="reward.amount"
-                                        :counter="9"
-                                        :error-messages="errors.collect('reward.amount')"
-                                        v-validate="'min_value:0|max:9'"
-                                        data-vv-name="reward.amount">
+                                        <tbody>
+                                        <tr v-for="(reward, index) in projectData.rewards" :key="index" :row="reward">
+                                            <td>
+                                                {{ index }}
+                                            </td>
+                                            <td>
+                                                <v-text-field
+                                                        v-model="reward.amount"
+                                                        :counter="9"
+                                                        :error-messages="errors.collect('reward.amount')"
+                                                        v-validate="'min_value:0|max:9'"
+                                                        data-vv-name="reward.amount">
 
-                                </v-text-field>
-                            </td>
-                            <td>
-                                <v-text-field
-                                        v-model="reward.description"
-                                        :counter="256"
-                                        :error-messages="errors.collect('reward.description')"
-                                        data-vv-name="reward.description"
-                                ></v-text-field>
-                            </td>
+                                                </v-text-field>
+                                            </td>
+                                            <td>
+                                                <v-text-field
+                                                        v-model="reward.description"
+                                                        :counter="256"
+                                                        :error-messages="errors.collect('reward.description')"
+                                                        data-vv-name="reward.description"
+                                                ></v-text-field>
+                                            </td>
 
-                            <v-btn @click="removeReward(index)">remove</v-btn>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <v-btn raised class="primary" type="submit">Update Rewards</v-btn>
-            </v-form>
+                                            <v-btn @click="removeReward(index)">remove</v-btn>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <v-btn raised class="primary" type="submit">Update Rewards</v-btn>
+                            </v-form>
                         </v-card>
                     </v-flex>
                 </v-layout>
-                    <v-layout row wrap>
-                        <v-flex xs8 offset-xs2 class="my-3">
-                            <v-card>
-                                <v-form  v-on:submit.prevent="updateImage" >
-
-                                    <v-btn raised class="primary" @click="onPickFile">Select IMAGE</v-btn>
-                                    <input type="file"
-                                           style="display: none"
-                                           ref="fileInput"
-                                           accept="image/*"
-                                           @change="onFilePicked">
-
-                                <v-layout row>
-                                    <v-flex xs8 offset-xs2 class="my-3">
-                                <img :src="imageUrl" height="150">
-                                </v-flex>
-                                </v-layout>
-                                    <v-btn raised class="primary" type="submit">Update Image</v-btn>
-                                </v-form>
-                            </v-card>
-                        </v-flex>
-                    </v-layout>
                 <v-layout row wrap>
                     <v-flex xs8 offset-xs2 class="my-3">
                         <v-card>
-                            <v-form class="red lighten-3" v-if="projectData.open" v-on:submit.prevent="updateProject" >
+                            <v-form v-on:submit.prevent="updateImage">
+
+                                <v-btn raised class="primary" @click="onPickFile">Select IMAGE</v-btn>
+                                <input type="file"
+                                       style="display: none"
+                                       ref="fileInput"
+                                       accept="image/*"
+                                       @change="onFilePicked">
+
+                                <v-layout row>
+                                    <v-flex xs8 offset-xs2 class="my-3">
+                                        <img :src="imageUrl" height="150">
+                                    </v-flex>
+                                </v-layout>
+                                <v-btn raised class="primary" type="submit">Update Image</v-btn>
+                            </v-form>
+                        </v-card>
+                    </v-flex>
+                </v-layout>
+                <v-layout row wrap>
+                    <v-flex xs8 offset-xs2 class="my-3">
+                        <v-card>
+                            <v-form class="red lighten-3" v-if="projectData.open" v-on:submit.prevent="updateProject">
                                 <v-select
                                         label="Select open/close to open/close the project.You will not be able to reopen the project once close the project"
                                         v-model="select"
@@ -101,7 +100,7 @@
                 </v-layout>
             </v-container>
         </v-app>
-        </div>
+    </div>
 </template>
 
 
@@ -134,8 +133,6 @@
         mounted: function () {
             this.checklogin();
             this.getSingleProject(this.$route.params.id);
-
-
         },
 
         methods: {
@@ -176,8 +173,6 @@
                         this.error = error.bodyText;
                         this.errorFlag = true;
                     });
-
-
             },
             updateProject: function () {
                 let open = true;
@@ -257,9 +252,6 @@
 
             }
         }
-
-
-
     }
 </script>
 
